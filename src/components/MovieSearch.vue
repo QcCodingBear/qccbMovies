@@ -2,17 +2,18 @@
   <form action="post" id="zoneRecherche" @submit.prevent>
 
     <input type="text" class="inputArea" v-model="valeurKeyWord" placeholder="Rechercher par mots-clés">
-
     <input type="text" class="inputArea" v-model="valeurYear" placeholder="Rechercher par année">
-
     <select id="optionGenre" name="choix" v-model="valeurGenre">
       <option value="" disabled>Genre</option>
+
       <option v-for="genre in props.genresMovies" :key="genre.id" :value="genre.id">
         {{ genre.name }}
       </option>
+
     </select>
 
     <button type="submit" @click="searchMovies()">Rechercher</button>
+
   </form>
 
 </template>
@@ -20,8 +21,10 @@
 <script setup>
 import { ref } from 'vue';
 import { movieStore } from '../stores';
+import { useRouter } from 'vue-router';
 
 const useMovieStore = movieStore();
+const router = useRouter();
 const valeurKeyWord = ref("");
 const valeurYear = ref("");
 const valeurGenre = ref("");
@@ -29,7 +32,6 @@ const valeurGenre = ref("");
 const props = defineProps({
   genresMovies: Array,
 })
-
 
 function searchMovies() {
   useMovieStore.query = "";
@@ -48,6 +50,8 @@ if (valeurGenre.value) {
 }
 
   useMovieStore.definirListeSearch();
+
+  router.push({ name: 'searchMovies' });
 }
 
 </script>

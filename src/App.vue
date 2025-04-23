@@ -1,6 +1,6 @@
 <script setup>
-import MoviesList from './views/MoviesView.vue';
 import MovieSearch from './components/MovieSearch.vue';
+import { RouterView } from 'vue-router'
 
 import { ref, onMounted, computed } from 'vue';
 import { fetchTopMovies, fetchGenres } from '@/services/MoviesService';
@@ -40,7 +40,7 @@ function recupererTopMovies(listeMovies) {
 }
 
 //https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-function comparerParDate(a, b) { 
+function comparerParDate(a, b) {
   const dateA = new Date(a.release_date);
   const dateB = new Date(b.release_date);
   return dateB - dateA;
@@ -54,7 +54,7 @@ const chargement = computed(() => {
 
 <template>
   <header>
-    <a href="/"><img src="/img/banniere.png" alt="Banniere" id="banniere"></a>
+    <a href="/"><img src="/src/assets/img/banniere.png" alt="Banniere" id="banniere"></a>
     <nav>
       <MovieSearch :genresMovies='genresMovies' />
     </nav>
@@ -63,7 +63,7 @@ const chargement = computed(() => {
     <div id="loading" v-if="chargement">
       <p id="textLoading">x - Chargement - x</p>
     </div>
-    <MoviesList :movies="useMovieStore.movies" v-if="!chargement" />
+    <RouterView :movies="useMovieStore.movies" v-if="!chargement" />
   </main>
 
 </template>
@@ -93,29 +93,31 @@ nav {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-image: url('/img/loading.gif'); /*https://www.reddit.com/r/PixelArt/comments/m1xwcp/back_to_the_future/?rdt=33217 */
+  background-image: url('/src/assets/img/loading.gif');
+  /*https://www.reddit.com/r/PixelArt/comments/m1xwcp/back_to_the_future/?rdt=33217 */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
   height: 800px;
   position: relative;
-  padding-top: 100px; 
+  padding-top: 100px;
 }
 
 #textLoading {
   font-family: "Silkscreen";
   font-size: 5rem;
   color: #ffd8d8;
-  text-shadow: /* https://www.youtube.com/watch?v=BDO_xNCw6wU */
-  .1vw 0vw .25vw #ffd8d8, .2vw 0vw .25vw #ffd8d8, .4vw 0vw .25vw #ffd8d8,
+  text-shadow:
+    /* https://www.youtube.com/watch?v=BDO_xNCw6wU */
+    .1vw 0vw .25vw #ffd8d8, .2vw 0vw .25vw #ffd8d8, .4vw 0vw .25vw #ffd8d8,
 
-  .1vw 0vw  0vw #f25757, .2vw 0vw  0vw #f25757, .4vw 0vw  0vw #f25757,
-  .1vw 0vw .1vw #f25757, .2vw 0vw .1vw #f25757, .4vw 0vw .1vw #f25757,
-  .1vw 0vw  2vw #f25757, .2vw 0vw  2vw #f25757, .4vw 0vw  2vw #f25757,
+    .1vw 0vw 0vw #f25757, .2vw 0vw 0vw #f25757, .4vw 0vw 0vw #f25757,
+    .1vw 0vw .1vw #f25757, .2vw 0vw .1vw #f25757, .4vw 0vw .1vw #f25757,
+    .1vw 0vw 2vw #f25757, .2vw 0vw 2vw #f25757, .4vw 0vw 2vw #f25757,
 
-  .1vw 0vw  1vw #e50b0b, .2vw 0vw  1vw #e50b0b, .4vw 0vw  5vw #e50b0b,
-  .1vw 0vw  5vw #e50b0b, .2vw 0vw 20vw #e50b0b, .4vw 0vw 10vw #e50b0b,
-  .1vw 0vw 10vw #e50b0b, .2vw 0vw 30vw #e50b0b, .4vw 0vw 10vw #e50b0b;
+    .1vw 0vw 1vw #e50b0b, .2vw 0vw 1vw #e50b0b, .4vw 0vw 5vw #e50b0b,
+    .1vw 0vw 5vw #e50b0b, .2vw 0vw 20vw #e50b0b, .4vw 0vw 10vw #e50b0b,
+    .1vw 0vw 10vw #e50b0b, .2vw 0vw 30vw #e50b0b, .4vw 0vw 10vw #e50b0b;
 }
 
 @media (min-width: 1024px) {

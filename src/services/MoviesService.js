@@ -20,7 +20,11 @@ export async function fetchGenres() {
 export async function fetchRechercheYearOrGenre(recherche) {
   const fullList = []
 
-  for (let i = 1; i <= NOMBRE_PAGE; i++) {
+  const response = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}${recherche}&language=fr-FR`);
+  const data = await response.json();
+  const totalPages = data.total_pages;
+
+  for (let i = 1; i <= totalPages; i++) {
     const response = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}${recherche}&language=fr-FR&page=${i}`)
     const data = await response.json()
     fullList.push(...data.results)

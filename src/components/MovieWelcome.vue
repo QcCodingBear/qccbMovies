@@ -27,13 +27,13 @@
 
 #welcome {
   display: inline-block;
-  margin: 3rem;
+  margin: 1.5rem;
   text-align: center;
-  padding: 2rem;
-  padding-left: 10rem;
-  padding-right: 10rem;
-  background-image: url('/img/welcomeBackground.webp'); /*https://giphy.com/gifs/southparkgifs-3o6ZsUNRUTKcG9mi8E*/
-  background-size: cover; 
+  padding: 1rem;
+  padding-left: 25rem;
+  padding-right: 25rem;
+  background-image: url('/src/assets/img/welcomeBackground.webp'); /*https://giphy.com/gifs/southparkgifs-3o6ZsUNRUTKcG9mi8E*/
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   box-shadow:
@@ -46,13 +46,13 @@
 }
 
 #textWelcome {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   font-family: "Silkscreen";
-  font-size: 5rem;
+  font-size: 2rem;
   color: #ffd8d8;
   text-shadow:
-    .1vw 0vw .25vw #ffd8d8, .2vw 0vw .25vw #ffd8d8, .4vw 0vw .25vw #ffd8d8,
-    .1vw 0vw 0vw #f25757, .2vw 0vw 0vw #f25757, .4vw 0vw 0vw #f25757,
+    .1vw 0vw 0vw #ffd8d8, .2vw 0vw 0vw #ffd8d8, .2vw 0vw 0vw #ffd8d8,
+    .1vw 0vw .1vw #f25757, .2vw 0vw .1vw #f25757, .2vw 0vw .1vw #f25757,
     .1vw 0vw .1vw #f25757, .2vw 0vw .1vw #f25757, .4vw 0vw .1vw #f25757,
     .1vw 0vw 2vw #f25757, .2vw 0vw 2vw #f25757, .4vw 0vw 2vw #f25757,
     .1vw 0vw 1vw #e50b0b, .2vw 0vw 1vw #e50b0b, .4vw 0vw 5vw #e50b0b,
@@ -61,8 +61,8 @@
 }
 
 .insertCoin {
-  font-family: "Silkscreen";
-  font-size: 1.75rem;  
+  font-family: "Doto";
+  font-size: 1rem;
   color: #ffd8d8;
   text-shadow:
     .1vw 0vw 0vw #57f25f, .2vw 0vw 0vw #57f25f, .2vw 0vw 0vw #57f25f,

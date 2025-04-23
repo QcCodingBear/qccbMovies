@@ -11,6 +11,11 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
+
+onMounted(() => {
+  document.title = 'QcCB Movies - Details';
+});
 
 defineProps({
   filmClique: Object
