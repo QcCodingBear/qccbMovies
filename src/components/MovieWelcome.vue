@@ -1,11 +1,12 @@
 <template>
   <div id="welcomeContainer">
+    <img src="/src/assets/img/popCorn.png" alt="popcorn" class="popCornClap">
     <div id="welcome">
       <p id="textWelcome">Welcome</p>
       <p class="insertCoin">Insert Coin</p>
       <p class="insertCoin">Credit : 0</p>
-
     </div>
+    <img src="/src/assets/img/camera.png" alt="popcorn" class="popCornClap">
   </div>
 
 </template>
@@ -30,8 +31,8 @@
   margin: 1.5rem;
   text-align: center;
   padding: 1rem;
-  padding-left: 25rem;
-  padding-right: 25rem;
+  padding-left: 20rem;
+  padding-right: 20rem;
   background-image: url('/src/assets/img/welcomeBackground.webp'); /*https://giphy.com/gifs/southparkgifs-3o6ZsUNRUTKcG9mi8E*/
   background-size: cover;
   background-repeat: no-repeat;
@@ -58,6 +59,10 @@
     .1vw 0vw 1vw #e50b0b, .2vw 0vw 1vw #e50b0b, .4vw 0vw 5vw #e50b0b,
     .1vw 0vw 5vw #e50b0b, .2vw 0vw 20vw #e50b0b, .4vw 0vw 10vw #e50b0b,
     .1vw 0vw 10vw #e50b0b, .2vw 0vw 30vw #e50b0b, .4vw 0vw 10vw #e50b0b;
+}
+
+.popCornClap {
+  width: 10rem;
 }
 
 .insertCoin {
