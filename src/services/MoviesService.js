@@ -1,0 +1,42 @@
+const API_KEY = '56ed988fa225bdc434fdf2d5b7042b54'
+const BASE_URL = 'https://api.themoviedb.org/3'
+const NOMBRE_PAGE = 200
+
+export async function fetchTopMovies() {
+  const fullList = []
+  const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}`)
+  const data = await response.json()
+  fullList.push(...data.results) // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax?
+
+  return fullList
+}
+
+export async function fetchGenres() {
+  const response = await fetch(`${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=fr-FR`)
+  const data = await response.json()
+  return data.genres
+}
+
+export async function fetchRechercheYearOrGenre(recherche) {
+  const fullList = []
+
+  for (let i = 1; i <= NOMBRE_PAGE; i++) {
+    const response = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}${recherche}&language=fr-FR&page=${i}`)
+    const data = await response.json()
+    fullList.push(...data.results)
+  }
+
+  return fullList
+}
+
+export async function fetchRechercheQuery(recherche) {
+  const fullList = []
+
+  for (let i = 1; i <= NOMBRE_PAGE; i++) {
+    const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}${recherche}&language=fr-FR&page=${i}`)
+    const data = await response.json()
+    fullList.push(...data.results)
+  }
+
+  return fullList
+}

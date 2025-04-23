@@ -1,0 +1,20 @@
+@import './base.css';
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  font-weight: normal;
+}
+
+body {
+  background: black;
+  background-image: url('/img/fond.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
