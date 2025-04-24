@@ -6,7 +6,7 @@
       <p class="insertCoin">Insert Coin</p>
       <p class="insertCoin">Credit : 0</p>
     </div>
-    <img src="/src/assets/img/camera.png" alt="popcorn" class="popCornClap">
+    <img src="/src/assets/img/camera.png" alt="camera" class="popCornClap">
   </div>
 
 </template>

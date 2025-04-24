@@ -1,6 +1,5 @@
 const API_KEY = '56ed988fa225bdc434fdf2d5b7042b54'
 const BASE_URL = 'https://api.themoviedb.org/3'
-const NOMBRE_PAGE = 200
 
 export async function fetchTopMovies() {
   const fullList = []
@@ -36,11 +35,23 @@ export async function fetchRechercheYearOrGenre(recherche) {
 export async function fetchRechercheQuery(recherche) {
   const fullList = []
 
-  for (let i = 1; i <= NOMBRE_PAGE; i++) {
+  const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}${recherche}&language=fr-FR`);
+  const data = await response.json();
+  const totalPages = data.total_pages;
+
+  for (let i = 1; i <= totalPages; i++) {
     const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}${recherche}&language=fr-FR&page=${i}`)
     const data = await response.json()
     fullList.push(...data.results)
   }
 
   return fullList
+}
+
+export async function fetchMovieById(id) {
+  const response = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
+  const data = await response.json();
+  const movie = data;
+
+  return movie
 }

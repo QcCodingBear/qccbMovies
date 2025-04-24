@@ -1,17 +1,14 @@
 <template>
 
-  <MovieWelcome v-if="useMovieStore.accueil" />
+  <MovieWelcome />
   <MovieResume v-for="movie in props.movies" :movie="movie" v-bind:key="movie.id" />
-  
+
 </template>
 
 <script setup>
 import MovieResume from "../components/MovieResume.vue";
 import MovieWelcome from "../components/MovieWelcome.vue";
-import { movieStore } from "../stores";
 import { onMounted } from 'vue';
-
-const useMovieStore = movieStore();
 
 const props = defineProps({
   movies: Array,

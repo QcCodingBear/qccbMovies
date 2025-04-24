@@ -1,13 +1,13 @@
 import {defineStore} from 'pinia';
-import { fetchRechercheYearOrGenre, fetchRechercheQuery } from '../services/MoviesService';
+import { fetchRechercheYearOrGenre, fetchRechercheQuery, fetchMovieById } from '../services/MoviesService';
 
 export const movieStore = defineStore("movies", {
   state: () => ({
     movies: [],
+    movieClicked: null,
     query: "",
     yearOrGenre: "",
     chargement: true,
-    accueil: true
   }),
   actions: {
     definirListeAccueil(listeTopFilms) {
@@ -33,7 +33,7 @@ export const movieStore = defineStore("movies", {
           }
 
           this.movies = moviesDataYearOrGenre.filter(findMovie);
-        
+
         function findMovie(movie) {
           return moviesQueryList.includes(movie.id);
         }
@@ -43,9 +43,24 @@ export const movieStore = defineStore("movies", {
         this.movies = await fetchRechercheYearOrGenre(this.yearOrGenre);
       }
       this.chargement = false;
+    },
+    async getMovieByID(id) {
+      this.chargement = true;
+      this.movieClicked = await fetchMovieById(id);
+      this.chargement = false;
     }
   },
   getters: {
-
+    totalFilmsTrouves: (state) => state.movies.length,
+    runtimeHours: (state) => {
+      const runtime = parseInt(state.movieClicked.runtime);
+      const hours = Math.floor(runtime / 60);
+      const minutes = runtime % 60;
+      if(hours === 0)
+      {
+        return `${minutes} minutes`;
+      }
+      return `${hours}h${minutes}`;
+    }
   }
 })

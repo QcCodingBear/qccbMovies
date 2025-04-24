@@ -1,19 +1,39 @@
 <template>
-  <div class="vignetteFilm">
-    <img :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="imageFilm" id="imageVignette">
+  <div class="vignetteFilm" @click="afficherDetails()">
+    <img :src="imageOrNull(movie.poster_path)" alt="imageFilm" id="imageVignette">
 
     <div id="texteVignette">
-      <p>Titre: {{ movie?.title }}</p>
-      <p>Date de sortie: {{ movie?.release_date }}</p>
+      <p>Titre: {{ movie.title }}</p>
+      <p>Date de sortie: {{ movie.release_date }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+import { movieStore } from '../stores';
 
-defineProps({
+const router = useRouter();
+const useMovieStore = movieStore();
+
+const props = defineProps({
   movie: Object
 })
+
+function imageOrNull(imagePath) {
+  const chemin = imagePath ? 'https://image.tmdb.org/t/p/w500' + imagePath : '../src/assets/img/noImage.png';
+  return chemin
+}
+
+// Source window.scroll : https://developer.mozilla.org/fr/docs/Web/API/Window/scrollBy
+function afficherDetails () {
+  useMovieStore.getMovieByID(props.movie.id);
+  router.push({ name: 'detailsMovie' });
+  window.scroll({
+  top: 0,
+  behavior: "smooth",
+});
+}
 </script>
 
 <style scoped>

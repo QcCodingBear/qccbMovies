@@ -1,28 +1,32 @@
 <template>
 
+  <div  id="hautPage">
+  <MoviesCounter />
+
   <MovieResume v-for="movie in moviesByPage" :movie="movie" v-bind:key="movie.id" />
 
   <div id="buttons">
     <button :disabled="pageActuelle <= 1" @click="changerPage('precedent')"
       :class="pageActuelle <= 1 ? 'neonButtonDisabled' : 'neonButton'">Precedent</button>
+
     <button :disabled="pageActuelle >= (props.movies.length / 10)" @click="changerPage('suivant')"
       :class="pageActuelle >= (props.movies.length / 10) ? 'neonButtonDisabled' : 'neonButton'">Suivant</button>
   </div>
-
+</div>
 </template>
 
 <script setup>
 import MovieResume from "../components/MovieResume.vue";
+import MoviesCounter from "../components/MoviesCounter.vue";
 import { ref, computed } from "vue";
 import { onMounted } from 'vue';
 
 const MOVIES_BY_PAGE = 10;
-
-let pageActuelle = ref(1);
-
 const props = defineProps({
   movies: Array,
 })
+
+let pageActuelle = ref(1);
 
 onMounted(() => {
   document.title = 'QcCB Movies - Recherche';
@@ -38,9 +42,14 @@ const nombreDePages = computed(() => {
   return Math.ceil(props.movies.length / MOVIES_BY_PAGE);
 });
 
+// Source window.scroll : https://developer.mozilla.org/fr/docs/Web/API/Window/scrollBy
 function changerPage(operation) {
   if (operation === 'precedent' && pageActuelle.value >= 2) { pageActuelle.value-- }
   if (operation === 'suivant' && pageActuelle.value < nombreDePages.value) { pageActuelle.value++ }
+  window.scroll({
+  top: 0,
+  behavior: "smooth",
+});
 }
 
 </script>

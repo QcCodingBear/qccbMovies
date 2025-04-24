@@ -1,25 +1,29 @@
 <template>
   <div>
-    <h2>{{ produitClique?.name }}</h2>
-<img :src="produitClique?.imageUrl" width="200" style="float:right" />
-<h3>{{ produitClique?.description }}</h3>
- <p>Prix: {{produitClique?.price}}</p>
- <p>Prix fixe? {{produitClique?.fixedPrice? 'Oui' : 'Non'}}</p>
- <p>Discontinué? {{produitClique?.discontinued? 'Oui' : 'Non'}}</p>
- <p>Date de modification: {{produitClique?.modifiedDate}}</p>
+    <h2>{{ movie.title }}</h2>
+    <img :src="imageOrNull(movie.poster_path)" alt="poster">
+    <p id="description">Description : {{movie.overview}}</p>
+    <p id="note">Note : {{movie.vote_average}} / 10</p>
+    <p id="duree">Durée : {{useMovieStore.runtimeHours}}</p>
+    <img :src="imageOrNull(movie.backdrop_path)" alt="backdrop">
   </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { movieStore } from '../stores';
 
-onMounted(() => {
-  document.title = 'QcCB Movies - Details';
-});
+const BASE_URL = 'https://image.tmdb.org/t/p/w500';
+const NO_RESULT = '../src/assets/img/noImage.png';
+const useMovieStore = movieStore();
+
+function imageOrNull(imagePath) {
+  const chemin = imagePath ? BASE_URL + imagePath : NO_RESULT;
+  return chemin
+}
 
 defineProps({
-  filmClique: Object
-});
+  movie: Object,
+})
 
 </script>
 

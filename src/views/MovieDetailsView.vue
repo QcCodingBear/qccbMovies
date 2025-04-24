@@ -1,15 +1,6 @@
 <template>
 
-  <div v-for="movie in props.movies" v-bind:key="movie.id" class="vignetteFilm">
-
-    <img :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="imageFilm" id="imageVignette">
-
-    <div id="texteVignette">
-      <p>Titre: {{ movie?.title }}</p>
-      <p>Date de sortie: {{ movie?.release_date }}</p>
-    </div>
-
-  </div>
+  <MovieDetails v-if="movie" :movie='movie'/>
 
   <div id="buttons">
     <button @click="changerPage()" class='neonButton'>Fermer</button>
@@ -18,16 +9,27 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
+import MovieDetails from '../components/MovieDetails.vue';
+import { onMounted, ref } from 'vue';
+import { movieStore } from '../stores';
 
-const props = defineProps({
-  movies: Array,
-})
+const useMovieStore = movieStore();
 const router = useRouter();
+const movie = ref();
+
+onMounted(() => {
+  document.title = 'QcCB Movies - Details';
+  movie.value = useMovieStore.movieClicked;
+});
 
 function changerPage() {
   router.back();
 }
+
+defineProps({
+  movies: Array
+})
 
 </script>
 

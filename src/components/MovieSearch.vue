@@ -36,7 +36,6 @@ const props = defineProps({
 function searchMovies() {
   useMovieStore.query = "";
   useMovieStore.yearOrGenre = "";
-  useMovieStore.accueil = false;
 
   if (valeurKeyWord.value) {
     useMovieStore.query += '&query=' + valeurKeyWord.value.trim();
@@ -50,6 +49,10 @@ if (valeurGenre.value) {
 }
 
   useMovieStore.definirListeSearch();
+
+  valeurKeyWord.value = "";
+  valeurYear.value = "";
+  valeurGenre.value = "";
 
   router.push({ name: 'searchMovies' });
 }
