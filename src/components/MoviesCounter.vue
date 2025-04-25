@@ -39,7 +39,7 @@ const nombreFilms = computed(() => {
 #counterText {
   margin: 0rem 1rem 0rem 1rem;
   font-family: Sixtyfour Convergence;
-  text-shadow: 
+  text-shadow:
   0 0 0.5px rgb(252, 100, 100),
   0 0 1px rgb(255, 49, 49);
 

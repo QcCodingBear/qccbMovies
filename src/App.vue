@@ -63,7 +63,7 @@ const chargement = computed(() => {
     <div id="loading" v-if="chargement">
       <p id="textLoading">x - Chargement - x</p>
     </div>
-    <RouterView :movies="useMovieStore.movies" v-if="!chargement" />
+    <RouterView v-if="!chargement" />
   </main>
 
 </template>

@@ -36,17 +36,18 @@ const props = defineProps({
 function searchMovies() {
   useMovieStore.query = "";
   useMovieStore.yearOrGenre = "";
+  useMovieStore.heavySearch = false;
 
   if (valeurKeyWord.value) {
-    useMovieStore.query += '&query=' + valeurKeyWord.value.trim();
+    useMovieStore.query = '&query=' + valeurKeyWord.value.trim();
   }
 
-if (valeurYear.value) {
-  useMovieStore.yearOrGenre += '&primary_release_year=' + valeurYear.value.trim();
-}
-if (valeurGenre.value) {
-  useMovieStore.yearOrGenre += '&with_genres=' + valeurGenre.value.toString();
-}
+  if (valeurYear.value) {
+    useMovieStore.year = '&primary_release_year=' + valeurYear.value.trim();
+  }
+  if (valeurGenre.value) {
+    useMovieStore.genre = '&with_genres=' + valeurGenre.value.toString();
+  }
 
   useMovieStore.definirListeSearch();
 
@@ -60,7 +61,7 @@ if (valeurGenre.value) {
 </script>
 
 <style scoped>
-  /* Source effet neon :https://dev.to/webdeasy/top-20-css-buttons-animations-f41 */
+/* Source effet neon :https://dev.to/webdeasy/top-20-css-buttons-animations-f41 */
 #zoneRecherche {
   width: 100%;
   display: flex;

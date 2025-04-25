@@ -1,7 +1,7 @@
 <template>
 
   <MovieWelcome />
-  <MovieResume v-for="movie in props.movies" :movie="movie" v-bind:key="movie.id" />
+  <MovieResume v-for="movie in useMovieStore.movies" :movie="movie" v-bind:key="movie.id" />
 
 </template>
 
@@ -9,10 +9,9 @@
 import MovieResume from "../components/MovieResume.vue";
 import MovieWelcome from "../components/MovieWelcome.vue";
 import { onMounted } from 'vue';
+import { movieStore } from "../stores";
 
-const props = defineProps({
-  movies: Array,
-})
+const useMovieStore = movieStore();
 
 onMounted(() => {
   document.title = 'QcCB Movies - Accueil';

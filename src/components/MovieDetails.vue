@@ -5,6 +5,8 @@
     <p id="description">Description : {{movie.overview}}</p>
     <p id="note">Note : {{movie.vote_average}} / 10</p>
     <p id="duree">Durée : {{useMovieStore.runtimeHours}}</p>
+    <p id="releaseYear">Année de sortie : {{ dateToYear(movie.release_date) }}</p>
+    <p id="url"><a :href="'https://www.themoviedb.org/movie/' + movie.id" target="_blank">Page TMDB</a></p>
     <img :src="imageOrNull(movie.backdrop_path)" alt="backdrop">
   </div>
 </template>
@@ -19,6 +21,10 @@ const useMovieStore = movieStore();
 function imageOrNull(imagePath) {
   const chemin = imagePath ? BASE_URL + imagePath : NO_RESULT;
   return chemin
+}
+
+function dateToYear(date) {
+  return date.slice(0, 4);
 }
 
 defineProps({

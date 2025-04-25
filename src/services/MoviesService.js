@@ -16,42 +16,28 @@ export async function fetchGenres() {
   return data.genres
 }
 
-export async function fetchRechercheYearOrGenre(recherche) {
-  const fullList = []
+export async function fetchRechercheYearOrGenre(recherche, page) {
 
-  const response = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}${recherche}&language=fr-FR`);
+  const response = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}${recherche}&language=fr-FR&page=${Math.ceil(page/2)}`);
   const data = await response.json();
-  const totalPages = data.total_pages;
 
-  for (let i = 1; i <= totalPages; i++) {
-    const response = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}${recherche}&language=fr-FR&page=${i}`)
-    const data = await response.json()
-    fullList.push(...data.results)
-  }
+  const fullList = data.results;
 
-  return fullList
+  return {totalFilms: data.total_results, movies: fullList, totalPages: data.total_pages}
 }
 
-export async function fetchRechercheQuery(recherche) {
-  const fullList = []
+export async function fetchRechercheQuery(recherche, page) {
 
-  const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}${recherche}&language=fr-FR`);
+  const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}${recherche}&language=fr-FR&page=${Math.ceil(page/2)}`);
   const data = await response.json();
-  const totalPages = data.total_pages;
 
-  for (let i = 1; i <= totalPages; i++) {
-    const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}${recherche}&language=fr-FR&page=${i}`)
-    const data = await response.json()
-    fullList.push(...data.results)
-  }
+  const fullList = data.results;
 
-  return fullList
+  return {totalFilms: data.total_results, movies: fullList, totalPages: data.total_pages}
 }
 
 export async function fetchMovieById(id) {
-  const response = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
+  const response = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=fr-FR`);
   const data = await response.json();
-  const movie = data;
-
-  return movie
+  return data;
 }

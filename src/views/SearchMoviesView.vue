@@ -5,12 +5,24 @@
 
   <MovieResume v-for="movie in moviesByPage" :movie="movie" v-bind:key="movie.id" />
 
-  <div id="buttons">
-    <button :disabled="pageActuelle <= 1" @click="changerPage('precedent')"
-      :class="pageActuelle <= 1 ? 'neonButtonDisabled' : 'neonButton'">Precedent</button>
+    <div v-if="useMovieStore.pageActuelle === useMovieStore.totalPages && useMovieStore.seeMore < 450" id="buttons">
+      <button  @click="voirPlus('precedent')" class='neonButton'>Voir Plus</button>
+    </div>
 
-    <button :disabled="pageActuelle >= (props.movies.length / 10)" @click="changerPage('suivant')"
-      :class="pageActuelle >= (props.movies.length / 10) ? 'neonButtonDisabled' : 'neonButton'">Suivant</button>
+    <div v-if="useMovieStore.heavySearch" id="buttons">
+    <button :disabled="useMovieStore.pageActuelle <= 1" @click="changerPage('precedent')"
+      :class="useMovieStore.pageActuelle <= 1 ? 'neonButtonDisabled' : 'neonButton'">Precedent</button>
+
+    <button :disabled="useMovieStore.pageActuelle === useMovieStore.totalPages" @click="changerPage('suivant')"
+      :class="useMovieStore.pageActuelle === useMovieStore.totalPages  ? 'neonButtonDisabled' : 'neonButton'">Suivant</button>
+  </div>
+
+  <div v-else id="buttons">
+    <button :disabled="useMovieStore.pageActuelle <= 1" @click="changerPage('precedent')"
+      :class="useMovieStore.pageActuelle <= 1 ? 'neonButtonDisabled' : 'neonButton'">Precedent</button>
+
+    <button :disabled="useMovieStore.pageActuelle >= Math.ceil(useMovieStore.totalPages * 2)" @click="changerPage('suivant')"
+      :class="useMovieStore.pageActuelle >= Math.ceil(useMovieStore.totalPages * 2) ? 'neonButtonDisabled' : 'neonButton'">Suivant</button>
   </div>
 </div>
 </template>
@@ -18,38 +30,66 @@
 <script setup>
 import MovieResume from "../components/MovieResume.vue";
 import MoviesCounter from "../components/MoviesCounter.vue";
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { onMounted } from 'vue';
+import { movieStore } from "../stores";
 
 const MOVIES_BY_PAGE = 10;
-const props = defineProps({
-  movies: Array,
-})
-
-let pageActuelle = ref(1);
+const useMovieStore = movieStore();
 
 onMounted(() => {
   document.title = 'QcCB Movies - Recherche';
 });
 
-const moviesByPage = computed(() => {
-  const start = (pageActuelle.value - 1) * MOVIES_BY_PAGE;
-  const end = start + MOVIES_BY_PAGE;
-  return props.movies.slice(start, end);
-});
 
-const nombreDePages = computed(() => {
-  return Math.ceil(props.movies.length / MOVIES_BY_PAGE);
+
+
+////////////////////////////////////////////////////////////////////////////////
+const moviesByPage = computed(() => {
+
+let start = 0;
+
+  if(!useMovieStore.heavySearch)
+{
+  start = (useMovieStore.pageActuelle % 2 === 0) ? MOVIES_BY_PAGE : 0;
+}
+else if (useMovieStore.pageActuelle > 1){
+  start = useMovieStore.pageActuelle * MOVIES_BY_PAGE - 10;
+}
+
+const end = start + MOVIES_BY_PAGE;
+
+  return moviesInstant.value.slice(start, end);
+});
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+const moviesInstant = computed(() => {
+  return useMovieStore.movies;
 });
 
 // Source window.scroll : https://developer.mozilla.org/fr/docs/Web/API/Window/scrollBy
 function changerPage(operation) {
-  if (operation === 'precedent' && pageActuelle.value >= 2) { pageActuelle.value-- }
-  if (operation === 'suivant' && pageActuelle.value < nombreDePages.value) { pageActuelle.value++ }
+
+  useMovieStore.pageActuelle = operation === 'precedent' ? useMovieStore.pageActuelle - 1 : useMovieStore.pageActuelle + 1;
+
+  if (!useMovieStore.heavySearch)
+  {
+    useMovieStore.definirListeSearch();
+  }
+
   window.scroll({
   top: 0,
   behavior: "smooth",
 });
+}
+
+function voirPlus() {
+  useMovieStore.seeMore += 50;
+  useMovieStore.definirListeSearch();
 }
 
 </script>
