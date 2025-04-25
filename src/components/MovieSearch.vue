@@ -35,7 +35,8 @@ const props = defineProps({
 
 function searchMovies() {
   useMovieStore.query = "";
-  useMovieStore.yearOrGenre = "";
+  useMovieStore.year = "";
+  useMovieStore.genre = "";
   useMovieStore.heavySearch = false;
 
   if (valeurKeyWord.value) {

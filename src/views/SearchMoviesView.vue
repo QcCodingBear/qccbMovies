@@ -5,11 +5,12 @@
 
   <MovieResume v-for="movie in moviesByPage" :movie="movie" v-bind:key="movie.id" />
 
-    <div v-if="useMovieStore.pageActuelle === useMovieStore.totalPages && useMovieStore.seeMore < 450" id="buttons">
-      <button  @click="voirPlus('precedent')" class='neonButton'>Voir Plus</button>
+
+    <div v-if="useMovieStore.pageActuelle === useMovieStore.totalPages && useMovieStore.seeMore < 450 && useMovieStore.heavySearch" id="buttons">
+      <button  @click="voirPlus('precedent')" class='neonButton'>Plus de Résultats</button>
     </div>
 
-    <div v-if="useMovieStore.heavySearch" id="buttons">
+    <div id="buttons">
     <button :disabled="useMovieStore.pageActuelle <= 1" @click="changerPage('precedent')"
       :class="useMovieStore.pageActuelle <= 1 ? 'neonButtonDisabled' : 'neonButton'">Precedent</button>
 
@@ -17,13 +18,11 @@
       :class="useMovieStore.pageActuelle === useMovieStore.totalPages  ? 'neonButtonDisabled' : 'neonButton'">Suivant</button>
   </div>
 
-  <div v-else id="buttons">
-    <button :disabled="useMovieStore.pageActuelle <= 1" @click="changerPage('precedent')"
-      :class="useMovieStore.pageActuelle <= 1 ? 'neonButtonDisabled' : 'neonButton'">Precedent</button>
+</div>
 
-    <button :disabled="useMovieStore.pageActuelle >= Math.ceil(useMovieStore.totalPages * 2)" @click="changerPage('suivant')"
-      :class="useMovieStore.pageActuelle >= Math.ceil(useMovieStore.totalPages * 2) ? 'neonButtonDisabled' : 'neonButton'">Suivant</button>
-  </div>
+<div id="pages">
+  Page {{useMovieStore.pageActuelle}} / {{useMovieStore.totalPages}}
+  Aller à la page : <input type="text"> <button>Go</button>
 </div>
 </template>
 
@@ -41,10 +40,6 @@ onMounted(() => {
   document.title = 'QcCB Movies - Recherche';
 });
 
-
-
-
-////////////////////////////////////////////////////////////////////////////////
 const moviesByPage = computed(() => {
 
 let start = 0;
@@ -61,11 +56,6 @@ const end = start + MOVIES_BY_PAGE;
 
   return moviesInstant.value.slice(start, end);
 });
-/////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
 
 const moviesInstant = computed(() => {
   return useMovieStore.movies;
