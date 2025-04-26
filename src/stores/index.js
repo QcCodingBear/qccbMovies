@@ -21,23 +21,68 @@ export const movieStore = defineStore('movies', {
     noResult: false
   }),
   actions: {
+
     definirListeAccueil(listeTopFilms) {
       this.movies = listeTopFilms
       this.chargement = false
     },
+
     async definirListeSearch() {
       this.chargement = true;
-      const BASE_SEARCH_PAGES = 50;
-      const MAX_SEARCH_PAGES = 450;
+      const targetedPage = this.pageActuelle === 1 ? 1 : Math.floor(this.pageActuelle/2);
 
-      if (this.query && !this.genre) {
-        const data = await this.getMovieByQuery(this.pageActuelle)
+      if (this.query && this.genre) {
+        this.getMovieByQueryYearGenre();
+      }
+
+      else {
+        const data = this.query && !this.genre ? await this.getMovieByQuery(targetedPage)
+        : await this.getMovieByYearOrGenre(targetedPage);
+
         this.movies = data.movies;
         this.totalMovies = data.totalFilms ?? 0;
-        this.totalPages = Math.ceil(this.totalMovies / 10) ?? 0;
+        if (this.totalMovies > 0)
+        {
+          const pagesCount = Math.ceil(this.totalMovies / 10);
+          this.totalPages = pagesCount > 1000 ? 1000 : pagesCount;
+        }
         this.noResult = this.totalMovies === 0 ? true : false;
 
-      } else if (this.query && this.genre) {
+      }
+
+      this.chargement = false
+    },
+
+    async getMovieByID(id) {
+      this.chargement = true
+      this.movieClicked = await fetchMovieById(id)
+      this.chargement = false
+    },
+
+    async getMovieByQuery(page) {
+      const search = this.query + this.year
+      const data = await fetchRechercheQuery(search, page)
+      return data
+    },
+
+    async getMovieByYearOrGenre(page) {
+      const search = this.year + this.genre
+      const data = await fetchRechercheYearOrGenre(search, page)
+      return data
+    },
+
+    getMapByMoviesList() {
+      let map = new Map()
+      for (let movie of this.movies) {
+        map.set(movie.id, movie)
+      }
+      return map
+    },
+
+    async getMovieByQueryYearGenre() {
+      const BASE_SEARCH_PAGES = 50;
+        const MAX_SEARCH_PAGES = 450;
+
         let dataQuery = []
         let dataYearOrGenre = []
         let dataMerge = this.heavySearch ? this.getMapByMoviesList() : new Map();
@@ -74,52 +119,23 @@ export const movieStore = defineStore('movies', {
 
         this.movies = Array.from(dataMerge.values());
         this.totalMovies = this.movies.length;
-        this.totalPages = Math.ceil(this.totalMovies / 10);
+        if (this.totalMovies > 0)
+          {
+            const pagesCount = Math.ceil(this.totalMovies / 10);
+            this.totalPages = pagesCount > 1000 ? 1000 : pagesCount;
+          }
         this.noResult = dataMerge.size === 0 ? true : false;
+    },
 
-      } else {
-        const data = await this.getMovieByYearOrGenre(this.pageActuelle);
-        this.totalMovies = data.totalFilms;
-        this.movies = data.movies;
-        this.totalPages = data.totalPages / 2;
-        this.noResult = this.totalMovies === 0 ? true : false;
-      }
-
-      this.chargement = false
-    },
-    async getMovieByID(id) {
-      this.chargement = true
-      this.movieClicked = await fetchMovieById(id)
-      this.chargement = false
-    },
-    async getMovieByQuery(page) {
-      const search = this.query + this.year
-      const data = await fetchRechercheQuery(search, page)
-      return data
-    },
-    async getMovieByYearOrGenre(page) {
-      const search = this.year + this.genre
-      const data = await fetchRechercheYearOrGenre(search, page)
-      return data
-    },
-    getMapByMoviesList() {
-      let map = new Map()
-      for (let movie of this.movies) {
-        map.set(movie.id, movie)
-      }
-      return map
-    },
   },
   getters: {
     totalFilmsTrouves: (state) => state.totalMovies,
+
     runtimeHours: (state) => {
       const runtime = parseInt(state.movieClicked.runtime)
       const hours = Math.floor(runtime / 60)
       const minutes = runtime % 60
-      if (hours === 0) {
-        return `${minutes} minutes`
-      }
-      return `${hours}h${minutes}`
+      return hours === 0 ? `${minutes} minutes` : `${hours}h${minutes}`;
     },
   },
 })

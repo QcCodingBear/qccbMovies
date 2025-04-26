@@ -34,7 +34,7 @@ const goPage = ref("");
 // Source window.scroll : https://developer.mozilla.org/fr/docs/Web/API/Window/scrollBy
 function changerPage(operation) {
 
-  useMovieStore.pageActuelle = operation === 'precedent' ? useMovieStore.pageActuelle - 1 : useMovieStore.pageActuelle + 1;
+  useMovieStore.pageActuelle = operation === 'precedent' ? parseInt(useMovieStore.pageActuelle) - 1 : parseInt(useMovieStore.pageActuelle) + 1;
 
   if (!useMovieStore.heavySearch) {
     useMovieStore.definirListeSearch();
@@ -55,7 +55,9 @@ function goChangePage() {
   if (goPage.value <= useMovieStore.totalPages && goPage.value >= 1 && !isNaN(goPage.value))
 {
   useMovieStore.pageActuelle = goPage.value;
-  useMovieStore.definirListeSearch();
+  if (!useMovieStore.heavySearch) {
+    useMovieStore.definirListeSearch();
+  }
   window.scroll({
     top: 0,
     behavior: "smooth",});

@@ -38,6 +38,7 @@ function searchMovies() {
   useMovieStore.year = "";
   useMovieStore.genre = "";
   useMovieStore.seeMore = 0;
+  useMovieStore.pageActuelle = 1;
   useMovieStore.heavySearch = false;
 
   if (valeurKeyWord.value) {

@@ -18,7 +18,7 @@ export async function fetchGenres() {
 
 export async function fetchRechercheYearOrGenre(recherche, page) {
 
-  const response = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}${recherche}&language=fr-FR&page=${Math.ceil(page/2)}`);
+  const response = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}${recherche}&language=fr-FR&page=${page}`);
   const data = await response.json();
 
   const fullList = data.results;
@@ -28,7 +28,7 @@ export async function fetchRechercheYearOrGenre(recherche, page) {
 
 export async function fetchRechercheQuery(recherche, page) {
 
-  const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}${recherche}&language=fr-FR&page=${Math.ceil(page/2)}`);
+  const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}${recherche}&language=fr-FR&page=${page}`);
   const data = await response.json();
 
   const fullList = data.results;
