@@ -33,6 +33,10 @@
 }
 
 #message {
+  background-image: url(/src/assets/img/welcomeBackground.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   border: solid 2px rgb(195, 0, 255);
   box-shadow: 0 0 10px  rgb(195, 0, 255);
   text-align: center;
