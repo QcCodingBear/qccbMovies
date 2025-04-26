@@ -30,7 +30,6 @@
   display: inline-block;
   margin: 1.5rem;
   text-align: center;
-  padding: 1rem;
   padding-left: 20rem;
   padding-right: 20rem;
   background-image: url('/src/assets/img/welcomeBackground.webp'); /*https://giphy.com/gifs/southparkgifs-3o6ZsUNRUTKcG9mi8E*/

@@ -1,5 +1,5 @@
 <template>
-  <form action="post" id="zoneRecherche" @submit.prevent>
+  <form action="post" id="zoneRecherche" @submit.prevent="searchMovies()">
 
     <input type="text" class="inputArea" v-model="valeurKeyWord" placeholder="Rechercher par mots-clés">
     <input type="text" class="inputArea" v-model="valeurYear" placeholder="Rechercher par année">
@@ -12,7 +12,7 @@
 
     </select>
 
-    <button type="submit" @click="searchMovies()">Rechercher</button>
+    <button type="submit">Rechercher</button>
 
   </form>
 
@@ -37,6 +37,7 @@ function searchMovies() {
   useMovieStore.query = "";
   useMovieStore.year = "";
   useMovieStore.genre = "";
+  useMovieStore.seeMore = 0;
   useMovieStore.heavySearch = false;
 
   if (valeurKeyWord.value) {
@@ -80,8 +81,6 @@ function searchMovies() {
 
 button,
 #optionGenre {
-  background-color: rgb(32, 32, 32);
-  color: white;
   border: 2px solid rgb(162, 23, 255);
   padding: 10px 20px;
   margin: 5px;
@@ -109,7 +108,7 @@ button,
 label #choix,
 #optionGenre,
 input[type="text"] {
-  background-color: black;
+  background-color: rgb(0, 0, 0);
   color: white;
   border: 2px solid #0ff;
   border-radius: 8px;
@@ -118,7 +117,6 @@ input[type="text"] {
   box-shadow: 0 0 5px rgb(40, 72, 255),
     0 0 10px rgb(40, 72, 255),
     0 0 20px rgb(40, 72, 255),
-    0 0 30px rgb(40, 72, 255),
-    0 0
+    0 0 30px rgb(40, 72, 255);
 }
 </style>

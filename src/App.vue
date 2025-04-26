@@ -97,8 +97,9 @@ nav {
   /*https://www.reddit.com/r/PixelArt/comments/m1xwcp/back_to_the_future/?rdt=33217 */
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: bottom;
-  height: 800px;
+  background-position: top;
+  background-size: 60em;
+  height: auto;
   position: relative;
   padding-top: 100px;
 }
@@ -107,6 +108,8 @@ nav {
   font-family: "Silkscreen";
   font-size: 5rem;
   color: #ffd8d8;
+  margin-top: 0;
+  padding-bottom: 50em;
   text-shadow:
     /* https://www.youtube.com/watch?v=BDO_xNCw6wU */
     .1vw 0vw .25vw #ffd8d8, .2vw 0vw .25vw #ffd8d8, .4vw 0vw .25vw #ffd8d8,
