@@ -31,13 +31,13 @@ import { ref } from "vue";
 const useMovieStore = movieStore();
 const goPage = ref("");
 
-// Source window.scroll : https://developer.mozilla.org/fr/docs/Web/API/Window/scrollBy
-function changerPage(operation) {
+// Source window.scroll : https://developer.mozilla.org/fr/docs/Web/API/Window/scroll
+async function changerPage(operation) {
 
-  useMovieStore.pageActuelle = operation === 'precedent' ? parseInt(useMovieStore.pageActuelle) - 1 : parseInt(useMovieStore.pageActuelle) + 1;
+  useMovieStore.pageActuelle = operation === 'precedent' ? useMovieStore.pageActuelle - 1 : useMovieStore.pageActuelle + 1;
 
   if (!useMovieStore.heavySearch) {
-    useMovieStore.definirListeSearch();
+    await useMovieStore.definirListeSearch();
   }
 
   window.scroll({
@@ -46,17 +46,20 @@ function changerPage(operation) {
   });
 }
 
-function voirPlus() {
+async function voirPlus() {
   useMovieStore.seeMore += 50;
-  useMovieStore.definirListeSearch();
+  await useMovieStore.definirListeSearch();
+  window.scroll({
+    top: document.body.scrollHeight,
+    behavior: "smooth"});
 }
 
-function goChangePage() {
+async function goChangePage() {
   if (goPage.value <= useMovieStore.totalPages && goPage.value >= 1 && !isNaN(goPage.value))
 {
-  useMovieStore.pageActuelle = goPage.value;
+  useMovieStore.pageActuelle = parseInt(goPage.value);
   if (!useMovieStore.heavySearch) {
-    useMovieStore.definirListeSearch();
+   await useMovieStore.definirListeSearch();
   }
   window.scroll({
     top: 0,

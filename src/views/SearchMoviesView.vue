@@ -1,5 +1,6 @@
 <template>
 
+<div v-if="!loading">
   <MoviesCounter v-if="!noResult"/>
   <NoMovies v-else />
 
@@ -7,6 +8,11 @@
 
 
   <ButtonsSearch v-if="!noResult"/>
+</div>
+<div  v-else>
+  <LoadingScreen />
+</div>
+
 
 </template>
 
@@ -15,6 +21,7 @@ import MovieResume from "../components/MovieResume.vue";
 import MoviesCounter from "../components/MoviesCounter.vue";
 import ButtonsSearch from "../components/ButtonsSearch.vue";
 import NoMovies from "../components/NoMovies.vue";
+import LoadingScreen from '../components/LoadingScreen.vue';
 import { computed } from "vue";
 import { onMounted } from 'vue';
 import { movieStore } from "../stores";
@@ -40,6 +47,10 @@ const moviesInstant = computed(() => {
 const noResult = computed(() => {
   return useMovieStore.noResult;
 });
+
+const loading = computed(() => {
+  return useMovieStore.chargement;
+})
 </script>
 
 <style scoped>

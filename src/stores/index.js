@@ -29,13 +29,13 @@ export const movieStore = defineStore('movies', {
 
     async definirListeSearch() {
       this.chargement = true;
-      const targetedPage = this.pageActuelle === 1 ? 1 : Math.floor(this.pageActuelle/2);
 
       if (this.query && this.genre) {
-        this.getMovieByQueryYearGenre();
+        await this.getMovieByQueryYearGenre();
       }
 
       else {
+        const targetedPage = this.pageActuelle === 1 ? 1 : Math.floor(this.pageActuelle/2);
         const data = this.query && !this.genre ? await this.getMovieByQuery(targetedPage)
         : await this.getMovieByYearOrGenre(targetedPage);
 
