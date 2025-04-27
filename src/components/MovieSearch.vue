@@ -5,7 +5,7 @@
     <input type="text" class="inputArea" v-model="valeurYear" placeholder="Rechercher par année">
     <select id="optionGenre" name="choix" v-model="valeurGenre">
       <option value="" disabled>Genre</option>
-
+      <option value="">Tous</option>
       <option v-for="genre in props.genresMovies" :key="genre.id" :value="genre.id">
         {{ genre.name }}
       </option>

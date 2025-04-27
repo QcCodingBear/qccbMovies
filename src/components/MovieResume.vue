@@ -26,8 +26,8 @@ function imageOrNull(imagePath) {
 }
 
 // Source window.scroll : https://developer.mozilla.org/fr/docs/Web/API/Window/scrollBy
-function afficherDetails () {
-  useMovieStore.getMovieByID(props.movie.id);
+async function afficherDetails () {
+  await useMovieStore.getMovieByID(props.movie.id);
   router.push({ name: 'detailsMovie' });
   window.scroll({
   top: 0,
