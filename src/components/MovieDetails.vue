@@ -71,7 +71,7 @@ h2, h3 {
 img {
   box-shadow: 1em 1em 5px rgb(0, 0, 0),
   8px 8px 10px rgb(0, 0, 0);
-  padding-top: 1em;
+  margin: 1em 0 1em 0;
 }
 
 p {
