@@ -1,10 +1,13 @@
 <template>
-  <div class="vignetteFilm" @click="afficherDetails()">
-    <img :src="imageOrNull(movie.poster_path)" alt="imageFilm" id="imageVignette">
+  <div class="vignetteFilm">
+    <img :src="imageOrNull(movie.poster_path)" alt="imageFilm" id="imageVignette" @click="afficherDetails()">
 
-    <div id="texteVignette">
-      <p>Titre: {{ movie.title }}</p>
-      <p>Date de sortie: {{ movie.release_date }}</p>
+    <div class="texteVignette">
+      <p><span id="titreDate">Titre</span>{{ movie.title }}</p>
+      <p><span id="titreDate">Date de sortie</span>{{ movie.release_date }}</p>
+    </div>
+    <div id="details">
+      <p @click="afficherDetails()">Détails</p>
     </div>
   </div>
 </template>
@@ -26,13 +29,13 @@ function imageOrNull(imagePath) {
 }
 
 // Source window.scroll : https://developer.mozilla.org/fr/docs/Web/API/Window/scrollBy
-async function afficherDetails () {
+async function afficherDetails() {
   await useMovieStore.getMovieByID(props.movie.id);
   router.push({ name: 'detailsMovie' });
   window.scroll({
-  top: 0,
-  behavior: "smooth",
-});
+    top: 0,
+    behavior: "smooth",
+  });
 }
 </script>
 
@@ -40,12 +43,13 @@ async function afficherDetails () {
 /* Source effet neon: https://blog.dorianguilmain.com/comment-creer-un-effet-neon-en-css/#:~:text=La%20propri%C3%A9t%C3%A9%20CSS%20text%2D
     shadow%20ajoute%20des%20ombres%20%C3%A0%20un,offset%20(blur)%20(color)%3B  */
 
-    .vignetteFilm {
+.vignetteFilm {
   display: flex;
-  flex-direction: row;
+  flex-direction:row;
   align-items: center;
-  padding: 10px;
-  margin: 10px;
+  text-align: center;
+  padding: 0.6em;
+  margin: 1.5em 8em 1.5em 8em;
   box-shadow:
     0 0 5px rgb(162, 23, 255),
     0 0 10px rgb(162, 23, 255),
@@ -53,23 +57,65 @@ async function afficherDetails () {
     0 0 30px rgb(162, 23, 255),
     0 0 40px rgb(162, 23, 255);
   border-radius: 10px;
-  background-color: rgb(32, 32, 32);
+  background-image: url(/src/assets/img/pixel.png);
+  background-repeat: repeat;
 }
 
-.vignetteFilm:hover {
-  background-color: rgb(49, 49, 49);
-}
-
-#texteVignette {
+.texteVignette {
   display: flex;
   flex-direction: column;
-  margin-left: 20px;
+  text-align: center;
+  flex: 1;
+  font-family: "Silkscreen";
+  color: blanchedalmond;
+  font-size: 1.4em;
+  text-shadow:
+    0 0 0.5px rgb(252, 100, 100),
+    0 0 1px rgb(255, 49, 49),
+    8px 8px 5px rgb(0, 0, 0),
+    8px 8px 10px rgb(0, 0, 0);
 }
 
 #imageVignette {
-  max-height: 200px;
+  max-height: 14em;
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  margin: 0.2em 1em 0.2em 1em;
+  box-shadow: 8px 8px 5px rgb(0, 0, 0),
+  8px 8px 10px rgb(0, 0, 0);
+}
+
+#imageVignette:hover {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgb(255, 255, 255);
+}
+
+#titreDate {
+  display: flex;
+  flex-direction: column;
+  font-family: Sixtyfour Convergence;
+  font-size: 0.8em;
+  padding: 0.5em;
+}
+
+#details {
+  align-self: flex-start;
+  font-family: "Silkscreen";
+  font-size: 1.4em;
+  text-shadow:
+    0 0 5px rgba(255, 255, 255, 0.295),
+    8px 8px 5px rgb(0, 0, 0),
+    8px 8px 10px rgb(0, 0, 0);
+  color: rgb(123, 131, 177);
+}
+
+#details:hover {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow:
+    0 0 10px rgb(255, 255, 255),
+    0 0 20px rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
 }
 </style>

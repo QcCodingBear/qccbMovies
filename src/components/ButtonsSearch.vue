@@ -116,20 +116,20 @@ async function goChangePage() {
 }
 
 input {
+  background-color: rgb(0, 0, 0);
   color: white;
   font-size: 16px;
   background-image: url('/src/assets/img/welcomeBackground.webp'); /*https://giphy.com/gifs/southparkgifs-3o6ZsUNRUTKcG9mi8E*/
   background-size: cover;
   background-position: center;
   text-align: center;
-  padding: 1em 0 1em 0;
-  box-shadow:
-  0 0 2px rgb(255, 255, 255),
-  0 0 2px rgb(244, 255, 205),
-    0 0 5px rgb(255, 223, 63),
-    0 0 10px rgb(255, 223, 63),
-    0 0 10px rgb(255, 193, 23);
-  border-radius: 25px;
+  padding: 0.7em 0 0.7em 0;
+  border: 2px solid #0ff;
+  box-shadow: 0 0 5px rgb(40, 72, 255),
+    0 0 10px rgb(40, 72, 255),
+    0 0 20px rgb(40, 72, 255),
+    0 0 30px rgb(40, 72, 255);
+    border-radius: 8px;
   max-width: 8em;
 }
 
