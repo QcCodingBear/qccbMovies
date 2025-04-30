@@ -31,9 +31,7 @@ const nombreFilms = computed(() => {
     0 0 10px rgb(255, 223, 63),
     0 0 20px rgb(255, 193, 23);
   border-radius: 25px;
-  margin: 1rem;;
   margin-bottom: 2rem;
-  width: fit-content;
 }
 
 #counterText {
@@ -42,6 +40,12 @@ const nombreFilms = computed(() => {
   text-shadow:
   0 0 0.5px rgb(252, 100, 100),
   0 0 1px rgb(255, 49, 49);
+}
 
+@media (min-width: 1024px) {
+  #counter {
+  margin: 2em 1em 2em 4em;
+  width: fit-content;
+  }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="buttons"
     v-if="useMovieStore.pageActuelle === useMovieStore.totalPages && useMovieStore.seeMore < 450 && useMovieStore.heavySearch">
-    <button @click="voirPlus('precedent')" class='neonButton' id="moreResults">Plus de Résultats</button>
+    <button @click="voirPlus('precedent')" class='neonButton' id="moreResults">Afficher plus de Résultats</button>
   </div>
 
   <div class="buttons">
@@ -9,16 +9,16 @@
       :class="useMovieStore.pageActuelle <= 1 ? 'neonButtonDisabled' : 'neonButton'">Precedent</button>
 
       <div id="pagesCounter">
-    Page {{ useMovieStore.pageActuelle }} / {{ useMovieStore.totalPages }}
+    <p>Page</p>
+    <input type="text" v-model="goPage" :placeholder="useMovieStore.pageActuelle">
+    <p>/ {{ useMovieStore.totalPages }}</p>
   </div>
 
     <button :disabled="useMovieStore.pageActuelle >= useMovieStore.totalPages" @click="changerPage('suivant')"
       :class="useMovieStore.pageActuelle >= useMovieStore.totalPages ? 'neonButtonDisabled' : 'neonButton'">Suivant</button>
   </div>
 
-  <form action="post" v-if="useMovieStore.totalPages > 0" id="goPage" @submit.prevent="goChangePage()">
-    <input type="text" v-model="goPage" placeholder="Aller à la page">
-
+  <form action="post" v-if="useMovieStore.totalPages > 0" class="goPage" @submit.prevent="goChangePage()">
     <button type="submit" :class="goPage > useMovieStore.totalPages || goPage <= 0 || isNaN(goPage) ? 'neonButtonDisabled' : 'neonButton'" id="goButton">Go</button>
   </form>
 
@@ -79,13 +79,12 @@ async function goChangePage() {
   color: white;
   background-color: black;
   border: 2px solid #0ff;
-  padding: 10px;
-  width: 150px;
-  margin: 15px;
+  margin: 1em;
+  width: 10em;
+  padding: 0.7em;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 1em;
   font-weight: bold;
-  cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 0 5px rgb(162, 23, 255),
     0 0 5px rgb(40, 72, 255),
@@ -107,11 +106,11 @@ async function goChangePage() {
   color: rgb(97, 95, 95);
   background-color: rgba(0, 0, 0, 0);
   border: 2px solid rgb(97, 97, 97);
-  padding: 10px;
-  width: 150px;
-  margin: 15px;
+  padding: 0.7em;
+  width: 10em;
+  margin: 1em;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 1em;
   font-weight: bold;
 }
 
@@ -119,18 +118,26 @@ input {
   background-color: rgb(0, 0, 0);
   color: white;
   font-size: 16px;
-  background-image: url('/src/assets/img/welcomeBackground.webp'); /*https://giphy.com/gifs/southparkgifs-3o6ZsUNRUTKcG9mi8E*/
-  background-size: cover;
-  background-position: center;
   text-align: center;
   padding: 0.7em 0 0.7em 0;
-  border: 2px solid #0ff;
-  box-shadow: 0 0 5px rgb(40, 72, 255),
-    0 0 10px rgb(40, 72, 255),
-    0 0 20px rgb(40, 72, 255),
-    0 0 30px rgb(40, 72, 255);
+  border: 2px solid rgb(255, 0, 0);
+  box-shadow: 0 0 5px rgb(255, 40, 40),
+    0 0 10px rgb(255, 40, 40);
     border-radius: 8px;
-  max-width: 8em;
+    width: auto;
+    box-sizing: border-box;
+    min-width: 3ch;
+    max-width: 5ch;
+    
+}
+p {
+  width: 4em;
+  padding: 0.5em;
+}
+
+input::placeholder {
+  color: rgb(255, 103, 103);
+  font-weight: bold;
 }
 
 #pages {
@@ -144,24 +151,19 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 3em 0 3em;
   font-family: Sixtyfour Convergence;
+  font-size: 0.8em;
   text-shadow:
   0 0 0.5px rgb(252, 100, 100),
   0 0 1px rgb(255, 49, 49);
+  padding: 0.5em;
 }
 
-#goButton {
-  width: fit-content;
-  margin-left: 1.5em;
-}
-
-#goPage {
+.goPage {
   display: flex;
-  flex-direction: inline;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-left: 1em;
 }
 
 .buttons {
@@ -172,6 +174,7 @@ input {
 
 #moreResults {
   width: fit-content;
+  height: 5em;;
   border: 2px solid rgb(255, 0, 0);
   box-shadow:
     0 0 5px rgb(162, 23, 255),
@@ -179,5 +182,29 @@ input {
     0 0 20px rgb(162, 23, 255),
     0 0 30px rgb(162, 23, 255),
     0 0 40px rgb(162, 23, 255);
+}
+
+@media (min-width: 1024px) {
+  #goPage {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#goButton {
+  width: fit-content;
+  margin-right: 2em;
+}
+
+.neonButton {
+  cursor: pointer;
+}
+
+#pagesCounter {
+  margin: 0 3em 0 2em;
+  padding: 0 4em 0 4em;
+  font-size: 1em;
+}
 }
 </style>

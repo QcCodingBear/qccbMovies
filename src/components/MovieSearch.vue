@@ -11,7 +11,6 @@
       </option>
 
     </select>
-
     <button type="submit">Rechercher</button>
 
   </form>
@@ -65,26 +64,20 @@ function searchMovies() {
 </script>
 
 <style scoped>
-/* Source effet neon :https://dev.to/webdeasy/top-20-css-buttons-animations-f41 */
 #zoneRecherche {
-  width: 100%;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
-#optionGenre {
-  margin: 5px;
-}
-
-.inputArea {
-  width: 80%;
-  margin: 5px;
-}
+.inputArea, #optionGenre, button {
+    width: 100%;
+  }
 
 button,
 #optionGenre {
   border: 2px solid rgb(162, 23, 255);
-  padding: 10px 20px;
   margin: 5px;
   border-radius: 8px;
   font-size: 16px;
@@ -115,10 +108,48 @@ input[type="text"] {
   border: 2px solid #0ff;
   border-radius: 8px;
   font-size: 16px;
-  padding: 10px;
+  padding: 1em;
+  margin-top: 1em;
   box-shadow: 0 0 5px rgb(40, 72, 255),
     0 0 10px rgb(40, 72, 255),
     0 0 20px rgb(40, 72, 255),
     0 0 30px rgb(40, 72, 255);
 }
+
+button {
+  margin-top: 2em;
+  height: 5em;
+}
+
+
+@media (min-width: 1024px) {
+  .inputArea, #optionGenre, button {
+    width: auto;
+  }
+
+  #zoneRecherche {
+  display: flex;
+  flex-direction: row;
+}
+
+.inputArea {
+  width: 80%;
+  margin: 5px;
+}
+
+select,
+button,
+label #choix,
+#optionGenre,
+input[type="text"] {
+  padding: 10px;
+    margin-top: 0;
+}
+
+button {
+  height:fit-content;
+}
+}
+
+
 </style>

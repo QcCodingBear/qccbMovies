@@ -17,7 +17,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 2em;
+  margin: 1em;
   font-family: Sixtyfour Convergence;
   text-shadow:
   0 0 0.5px rgb(252, 100, 100),
@@ -26,7 +26,7 @@
 
 #gameOver {
   margin: 1em 3em 0 3em;
-  font-size: 2em;
+  font-size: 1em;
   text-shadow:
   0 0 0.5px rgb(252, 100, 100),
   0 0 1px rgb(255, 49, 49);
@@ -45,12 +45,26 @@
 }
 
 img {
-  max-width: 20em;
+  max-width: 8em;
   box-shadow:
     0 0 5px rgb(255, 50, 23),
     0 0 10px rgb(255, 50, 23),
     0 0 20px rgb(255, 50, 23),
     0 0 30px rgb(255, 50, 23),
     0 0 40px rgb(255, 50, 23);
+}
+
+@media (min-width: 1024px) {
+  img {
+    max-width: 20em;
+  }
+
+  #noResult{
+    margin: 2em;
+  }
+  #gameOver {
+  margin: 1em 3em 0 3em;
+  font-size: 2em;
+}
 }
 </style>

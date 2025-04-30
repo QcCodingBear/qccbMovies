@@ -1,5 +1,6 @@
 <script setup>
 import MovieSearch from './components/MovieSearch.vue';
+import MainFooter from './components/MainFooter.vue';
 import { RouterView } from 'vue-router'
 
 import { ref, onMounted } from 'vue';
@@ -60,23 +61,23 @@ function comparerParDate(a, b) {
   <main>
     <RouterView />
   </main>
-
+  <footer>
+    <MainFooter />
+  </footer>
 </template>
 
 <style scoped>
 header {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 1em;
 }
 
 nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
   width: 100%;
-  font-size: 20px;
+  margin: 2em;
 }
 
 main {
@@ -90,13 +91,18 @@ main {
 @media (min-width: 1024px) {
 
   nav {
-    font-size: 25px;
-    max-height: 50px;
-    padding: 10px;
-    border: 2px solid transparent;
-    border-radius: 10px;
-    background-color: black;
-
+    font-size: 1.5em;
+    max-height: 5em;
+    margin: 0;
   }
+  header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+#banniere {
+  max-width: 100%;
+}
 }
 </style>

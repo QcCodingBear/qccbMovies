@@ -45,11 +45,10 @@ async function afficherDetails() {
 
 .vignetteFilm {
   display: flex;
-  flex-direction:row;
   align-items: center;
   text-align: center;
   padding: 0.6em;
-  margin: 1.5em 8em 1.5em 8em;
+  margin-bottom: 1em;
   box-shadow:
     0 0 5px rgb(162, 23, 255),
     0 0 10px rgb(162, 23, 255),
@@ -68,7 +67,7 @@ async function afficherDetails() {
   flex: 1;
   font-family: "Silkscreen";
   color: blanchedalmond;
-  font-size: 1.4em;
+  font-size: 1.2em;
   text-shadow:
     0 0 0.5px rgb(252, 100, 100),
     0 0 1px rgb(255, 49, 49),
@@ -77,10 +76,10 @@ async function afficherDetails() {
 }
 
 #imageVignette {
-  max-height: 14em;
+  max-height: 12em;
   display: flex;
   flex-direction: column;
-  margin: 0.2em 1em 0.2em 1em;
+  margin-bottom: 0;
   box-shadow: 8px 8px 5px rgb(0, 0, 0),
   8px 8px 10px rgb(0, 0, 0);
 }
@@ -95,19 +94,12 @@ async function afficherDetails() {
   display: flex;
   flex-direction: column;
   font-family: Sixtyfour Convergence;
-  font-size: 0.8em;
+  font-size: 0.6em;
   padding: 0.5em;
 }
 
 #details {
-  align-self: flex-start;
-  font-family: "Silkscreen";
-  font-size: 1.4em;
-  text-shadow:
-    0 0 5px rgba(255, 255, 255, 0.295),
-    8px 8px 5px rgb(0, 0, 0),
-    8px 8px 10px rgb(0, 0, 0);
-  color: rgb(123, 131, 177);
+  display: none;
 }
 
 #details:hover {
@@ -117,5 +109,39 @@ async function afficherDetails() {
     0 0 10px rgb(255, 255, 255),
     0 0 20px rgb(255, 255, 255);
   color: rgb(255, 255, 255);
+}
+
+@media screen and (min-width: 1024px) {
+
+.vignetteFilm {
+  margin: 1.5em 8em 1.5em 8em;
+}
+
+#details {
+  display: block;
+  align-self: flex-start;
+  font-family: "Silkscreen";
+  font-size: 1.4em;
+  margin-right: 0.5em;
+  text-shadow:
+    0 0 5px rgba(255, 255, 255, 0.295),
+    8px 8px 5px rgb(0, 0, 0),
+    8px 8px 10px rgb(0, 0, 0);
+  color: rgb(123, 131, 177);
+}
+
+#titreDate {
+  font-size: 0.8em;
+}
+
+.texteVignette {
+  font-size: 1.4em;
+}
+
+#imageVignette {
+  max-height: 14em;
+  margin: 0.2em 1em 0.2em 1em;
+}
+
 }
 </style>

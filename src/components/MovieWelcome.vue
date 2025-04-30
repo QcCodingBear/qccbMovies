@@ -22,16 +22,20 @@
 
 #welcomeContainer {
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  max-width: 100vw;
 }
 
 #welcome {
   display: inline-block;
+  width: 90%;
   margin: 1.5rem;
+  max-width: 10em;
   text-align: center;
-  padding-left: 20rem;
-  padding-right: 20rem;
+  padding: 0 1em 0 1em;
   background-image: url('/src/assets/img/welcomeBackground.webp'); /*https://giphy.com/gifs/southparkgifs-3o6ZsUNRUTKcG9mi8E*/
   background-size: cover;
   background-repeat: no-repeat;
@@ -61,7 +65,7 @@
 }
 
 .popCornClap {
-  width: 10rem;
+  width: 5rem;
 }
 
 .insertCoin {
@@ -76,5 +80,22 @@
     .1vw 0vw 1vw #129c3b, .2vw 0vw 1vw #129c3b, .4vw 0vw 5vw #129c3b,
     .1vw 0vw 5vw #129c3b, .2vw 0vw 20vw #129c3b, .4vw 0vw 10vw #129c3b,
     .1vw 0vw 10vw #129c3b, .2vw 0vw 30vw #129c3b, .4vw 0vw 10vw #129c3b;
+}
+
+@media screen and (min-width: 1024px) {
+  #welcomeContainer {
+    overflow: visible;
+  }
+
+  #welcome {
+    width: auto;
+    padding-left: 20rem;
+    padding-right: 20rem;
+    max-width: 20em;
+  }
+
+  .popCornClap {
+    width: 10rem;
+  }
 }
 </style>

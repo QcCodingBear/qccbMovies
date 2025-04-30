@@ -20,5 +20,5 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Source animation boutton: https://dev.to/webdeasy/top-20-css-buttons-animations-f41 */
+
 </style>

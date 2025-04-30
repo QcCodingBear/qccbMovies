@@ -3,7 +3,7 @@
   <MovieDetails v-if="movie" :movie='movie'/>
 
   <div id="buttons">
-    <button @click="changerPage()" class='neonButton'>Fermer</button>
+    <button @click="changerPage()" class='neonButton'>Retour</button>
   </div>
 
 </template>

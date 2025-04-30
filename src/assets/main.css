@@ -12,11 +12,11 @@
 }
 
 body {
-  background: black;
-  background-image: url('/src/assets/img/fond.png');
+  background-image: url('/src/assets/img/background.avif');
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: top;
+  background-attachment: fixed;
 }
 
 

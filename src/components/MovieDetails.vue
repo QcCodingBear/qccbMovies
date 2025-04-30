@@ -46,7 +46,7 @@ defineProps({
   flex-direction:column;
   align-items: center;
   text-align: center;
-  margin: 1.5em 5em 1.5em 5em;
+  margin: 0;
   box-shadow:
     0 0 5px rgb(162, 23, 255),
     0 0 10px rgb(162, 23, 255),
@@ -72,6 +72,8 @@ img {
   box-shadow: 1em 1em 5px rgb(0, 0, 0),
   8px 8px 10px rgb(0, 0, 0);
   margin: 1em 0 1em 0;
+  width: 85vw;
+  max-width: 35em;
 }
 
 p {
@@ -107,4 +109,10 @@ p {
   width: 25em;
 }
 
+@media (min-width: 1024px) {
+  .detailsContainer {
+  margin: 1.5em 5em 1.5em 5em;
+}
+
+}
 </style>
