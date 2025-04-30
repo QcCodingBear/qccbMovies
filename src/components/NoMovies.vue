@@ -2,7 +2,7 @@
   <div id="noResult">
     <img src="/src/assets/img/noResult.png" alt="noResult">
     <p id="gameOver">Game Over</p>
-    <p id="message">Essaie une nouvelle recherche<br> avec d'autres critéres.</p>
+    <p id="message">Essaies une nouvelle recherche<br> avec d'autres critères.</p>
   </div>
 </template>
 

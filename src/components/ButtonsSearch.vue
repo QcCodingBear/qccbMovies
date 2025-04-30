@@ -11,7 +11,7 @@
       <div id="pagesCounter">
     <p>Page</p>
     <input type="text" v-model="goPage" :placeholder="useMovieStore.pageActuelle">
-    <p>/ {{ useMovieStore.totalPages }}</p>
+    <p id="maxCounter">/{{ useMovieStore.totalPages }}</p>
   </div>
 
     <button :disabled="useMovieStore.pageActuelle >= useMovieStore.totalPages" @click="changerPage('suivant')"
@@ -19,7 +19,7 @@
   </div>
 
   <form action="post" v-if="useMovieStore.totalPages > 0" class="goPage" @submit.prevent="goChangePage()">
-    <button type="submit" :class="goPage > useMovieStore.totalPages || goPage <= 0 || isNaN(goPage) ? 'neonButtonDisabled' : 'neonButton'" id="goButton">Go</button>
+    <button type="submit" :class="goPage > useMovieStore.totalPages || goPage <= 0 || isNaN(goPage) ? 'neonButtonDisabled' : 'neonButton'" id="goButton">Aller à la page</button>
   </form>
 
 </template>
@@ -128,16 +128,21 @@ input {
     box-sizing: border-box;
     min-width: 3ch;
     max-width: 5ch;
-    
+
 }
 p {
-  width: 4em;
   padding: 0.5em;
 }
+
 
 input::placeholder {
   color: rgb(255, 103, 103);
   font-weight: bold;
+}
+
+/* https://stackoverflow.com/questions/13183421/how-to-change-placeholder-color-on-focus */
+input:focus::placeholder {
+  color: rgba(255, 103, 103, 0);
 }
 
 #pages {
@@ -156,7 +161,6 @@ input::placeholder {
   text-shadow:
   0 0 0.5px rgb(252, 100, 100),
   0 0 1px rgb(255, 49, 49);
-  padding: 0.5em;
 }
 
 .goPage {
@@ -202,7 +206,7 @@ input::placeholder {
 }
 
 #pagesCounter {
-  margin: 0 3em 0 2em;
+  margin: 0 2em 0 2em;
   padding: 0 4em 0 4em;
   font-size: 1em;
 }
