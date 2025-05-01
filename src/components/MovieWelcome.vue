@@ -12,13 +12,28 @@
 </template>
 
 <script setup>
-
 </script>
 
 <style scoped>
 /* Source effet neon: https://blog.dorianguilmain.com/comment-creer-un-effet-neon-en-css/#:~:text=La%20propri%C3%A9t%C3%A9%20CSS%20text%2D
     shadow%20ajoute%20des%20ombres%20%C3%A0%20un,offset%20(blur)%20(color)%3B  */
+/*Source style text-shadow:  https://www.youtube.com/watch?v=BDO_xNCw6wU */
 /* Source animation boutton: https://dev.to/webdeasy/top-20-css-buttons-animations-f41 */
+/*Source image welcomeBackground: https://giphy.com/gifs/southparkgifs-3o6ZsUNRUTKcG9mi8E*/
+
+.popCornClap {
+  width: 5rem;
+}
+
+.insertCoin {
+  font-family: "Doto";
+  font-size: 1rem;
+  color: #ffd8d8;
+  text-shadow:
+    .1vw 0vw 0vw #57f25f, .1vw 0vw 0vw #57f25f,
+    .2vw 0vw .1vw #57f25f, .2vw 0vw .1vw #57f25f,
+    .1vw 0vw 10vw #129c3b, .2vw 0vw 30vw #129c3b;
+}
 
 #welcomeContainer {
   display: flex;
@@ -36,14 +51,12 @@
   max-width: 10em;
   text-align: center;
   padding: 0 1em 0 1em;
-  background-image: url('/src/assets/img/welcomeBackground.webp'); /*https://giphy.com/gifs/southparkgifs-3o6ZsUNRUTKcG9mi8E*/
+  background-image: url('/src/assets/img/welcomeBackground.webp');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   box-shadow:
     0 0 5px rgb(255, 193, 23),
-    0 0 10px rgb(255, 193, 23),
-    0 0 20px rgb(255, 193, 23),
     0 0 30px rgb(255, 193, 23),
     0 0 40px rgb(255, 193, 23);
   border-radius: 25px;
@@ -55,36 +68,16 @@
   font-size: 2rem;
   color: #ffd8d8;
   text-shadow:
-    .1vw 0vw 0vw #ffd8d8, .2vw 0vw 0vw #ffd8d8, .2vw 0vw 0vw #ffd8d8,
-    .1vw 0vw .1vw #f25757, .2vw 0vw .1vw #f25757, .2vw 0vw .1vw #f25757,
-    .1vw 0vw .1vw #f25757, .2vw 0vw .1vw #f25757, .4vw 0vw .1vw #f25757,
-    .1vw 0vw 2vw #f25757, .2vw 0vw 2vw #f25757, .4vw 0vw 2vw #f25757,
-    .1vw 0vw 1vw #e50b0b, .2vw 0vw 1vw #e50b0b, .4vw 0vw 5vw #e50b0b,
-    .1vw 0vw 5vw #e50b0b, .2vw 0vw 20vw #e50b0b, .4vw 0vw 10vw #e50b0b,
-    .1vw 0vw 10vw #e50b0b, .2vw 0vw 30vw #e50b0b, .4vw 0vw 10vw #e50b0b;
-}
-
-.popCornClap {
-  width: 5rem;
-}
-
-.insertCoin {
-  font-family: "Doto";
-  font-size: 1rem;
-  color: #ffd8d8;
-  text-shadow:
-    .1vw 0vw 0vw #57f25f, .2vw 0vw 0vw #57f25f, .2vw 0vw 0vw #57f25f,
-    .1vw 0vw .1vw #57f25f, .2vw 0vw .1vw #57f25f, .2vw 0vw .1vw #57f25f,
-    .1vw 0vw .1vw #57f25f, .2vw 0vw .1vw #57f25f, .4vw 0vw .1vw #57f25f,
-    .1vw 0vw 2vw #57f25f, .2vw 0vw 2vw #57f25f, .4vw 0vw 2vw #57f25f,
-    .1vw 0vw 1vw #129c3b, .2vw 0vw 1vw #129c3b, .4vw 0vw 5vw #129c3b,
-    .1vw 0vw 5vw #129c3b, .2vw 0vw 20vw #129c3b, .4vw 0vw 10vw #129c3b,
-    .1vw 0vw 10vw #129c3b, .2vw 0vw 30vw #129c3b, .4vw 0vw 10vw #129c3b;
+    .1vw 0vw 0vw #e9a4a4, .2vw 0vw 0vw #e9a4a4,
+    .1vw 0vw .1vw #f25757, .2vw 0vw .1vw #f25757,
+    .1vw 0vw 2vw #f25757, .2vw 0vw 2vw #f25757,
+    .4vw 0vw 2vw #f25757, .4vw 0vw 10vw #e50b0b,
+    .2vw 0vw 30vw #e50b0b, .4vw 0vw 10vw #e50b0b;
 }
 
 @media screen and (min-width: 1024px) {
-  #welcomeContainer {
-    overflow: visible;
+  .popCornClap {
+    width: 10rem;
   }
 
   #welcome {
@@ -92,10 +85,6 @@
     padding-left: 20rem;
     padding-right: 20rem;
     max-width: 20em;
-  }
-
-  .popCornClap {
-    width: 10rem;
   }
 }
 </style>

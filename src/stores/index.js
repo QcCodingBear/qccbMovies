@@ -5,37 +5,32 @@ import {
   fetchMovieById,
 } from '../services/MoviesService'
 
-export const movieStore = defineStore('movies', {
+export const useMovieStore = defineStore('movies', {
   state: () => ({
     movies: [],
-    totalMovies: '',
-    pageActuelle: 1,
+    totalMovies: 0,
+    currentPage: 1,
     totalPages: 0,
-    seeMore: 0,
+    seeMoreCounter: 0,
     movieClicked: null,
     query: '',
     year: '',
     genre: '',
-    chargement: true,
+    loading: true,
     heavySearch: false,
     noResult: false
   }),
   actions: {
 
-    definirListeAccueil(listeTopFilms) {
-      this.movies = listeTopFilms
-      this.chargement = false
-    },
-
-    async definirListeSearch() {
-      this.chargement = true;
+    async defineListSearch() {
+      this.loading = true;
 
       if (this.query && this.genre) {
         await this.getMovieByQueryYearGenre();
       }
 
       else {
-        const targetedPage = this.pageActuelle === 1 ? 1 : Math.floor(this.pageActuelle/2);
+        const targetedPage = this.currentPage === 1 ? 1 : Math.floor(this.currentPage/2);
         const data = this.query && !this.genre ? await this.getMovieByQuery(targetedPage)
         : await this.getMovieByYearOrGenre(targetedPage);
 
@@ -50,13 +45,13 @@ export const movieStore = defineStore('movies', {
 
       }
 
-      this.chargement = false
+      this.loading = false
     },
 
     async getMovieByID(id) {
-      this.chargement = true
+      this.loading = true
       this.movieClicked = await fetchMovieById(id)
-      this.chargement = false
+      this.loading = false
     },
 
     async getMovieByQuery(page) {
@@ -90,9 +85,9 @@ export const movieStore = defineStore('movies', {
         this.heavySearch = true
 
         do {
-          for (let i = 1; i < BASE_SEARCH_PAGES + this.seeMore; i++) {
+          for (let i = 1; i < BASE_SEARCH_PAGES + this.seeMoreCounter; i++) {
             const queryData = await this.getMovieByQuery(i)
-            if (queryData.movies.length === 0) i = BASE_SEARCH_PAGES + this.seeMore
+            if (queryData.movies.length === 0) i = BASE_SEARCH_PAGES + this.seeMoreCounter
             dataQuery.push(queryData)
 
             for (let dataQueryMovie of queryData.movies) {
@@ -100,7 +95,7 @@ export const movieStore = defineStore('movies', {
             }
           }
 
-          for (let i = 1 + this.seeMore; i < BASE_SEARCH_PAGES + this.seeMore; i++) {
+          for (let i = 1 + this.seeMoreCounter; i < BASE_SEARCH_PAGES + this.seeMoreCounter; i++) {
             const yearOrGenreData = await this.getMovieByYearOrGenre(i)
             dataYearOrGenre.push(yearOrGenreData)
           }
@@ -114,8 +109,8 @@ export const movieStore = defineStore('movies', {
               }
             }
           }
-          this.seeMore += (dataMerge.size === this.movies.length && this.seeMore < MAX_SEARCH_PAGES) ? BASE_SEARCH_PAGES : 0;
-        } while ((dataMerge.size === 0 && this.seeMore < MAX_SEARCH_PAGES) ||(dataMerge.size === this.movies.length && this.seeMore < MAX_SEARCH_PAGES));
+          this.seeMoreCounter += (dataMerge.size === this.movies.length && this.seeMoreCounter < MAX_SEARCH_PAGES) ? BASE_SEARCH_PAGES : 0;
+        } while ((dataMerge.size === 0 && this.seeMoreCounter < MAX_SEARCH_PAGES) ||(dataMerge.size === this.movies.length && this.seeMoreCounter < MAX_SEARCH_PAGES));
 
         this.movies = Array.from(dataMerge.values());
         this.totalMovies = this.movies.length;
@@ -129,7 +124,7 @@ export const movieStore = defineStore('movies', {
 
   },
   getters: {
-    totalFilmsTrouves: (state) => state.totalMovies,
+    totalFoundMovies: (state) => state.totalMovies,
 
     runtimeHours: (state) => {
       const runtime = parseInt(state.movieClicked.runtime)

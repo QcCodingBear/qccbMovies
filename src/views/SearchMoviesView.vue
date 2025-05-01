@@ -13,7 +13,6 @@
   <LoadingScreen />
 </div>
 
-
 </template>
 
 <script setup>
@@ -24,32 +23,32 @@ import NoMovies from "../components/NoMovies.vue";
 import LoadingScreen from '../components/LoadingScreen.vue';
 import { computed } from "vue";
 import { onMounted } from 'vue';
-import { movieStore } from "../stores";
+import { useMovieStore } from "../stores";
 
 const MOVIES_BY_PAGE = 10;
-const useMovieStore = movieStore();
+const movieStore = useMovieStore();
 
 onMounted(() => {
   document.title = 'QcCB Movies - Recherche';
 });
 
 const moviesByPage = computed(() => {
-  const start = !useMovieStore.heavySearch ? ((useMovieStore.pageActuelle % 2 === 0) ? MOVIES_BY_PAGE : 0)
-  : (useMovieStore.pageActuelle > 1 ? (useMovieStore.pageActuelle * MOVIES_BY_PAGE - 10) : 0);
+  const start = !movieStore.heavySearch ? ((movieStore.currentPage % 2 === 0) ? MOVIES_BY_PAGE : 0)
+  : (movieStore.currentPage > 1 ? (movieStore.currentPage * MOVIES_BY_PAGE - 10) : 0);
   const end = start + MOVIES_BY_PAGE;
   return moviesInstant.value.slice(start, end);
 });
 
 const moviesInstant = computed(() => {
-  return useMovieStore.movies;
+  return movieStore.movies;
 });
 
 const noResult = computed(() => {
-  return useMovieStore.noResult;
+  return movieStore.noResult;
 });
 
 const loading = computed(() => {
-  return useMovieStore.chargement;
+  return movieStore.loading;
 })
 </script>
 

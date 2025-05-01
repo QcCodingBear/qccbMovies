@@ -12,15 +12,15 @@
 import { useRouter } from 'vue-router';
 import MovieDetails from '../components/MovieDetails.vue';
 import { onMounted, ref } from 'vue';
-import { movieStore } from '../stores';
+import { useMovieStore } from '../stores';
 
-const useMovieStore = movieStore();
+const movieStore = useMovieStore();
 const router = useRouter();
 const movie = ref();
 
 onMounted(() => {
   document.title = 'QcCB Movies - Details';
-  movie.value = useMovieStore.movieClicked;
+  movie.value = movieStore.movieClicked;
 });
 
 function changerPage() {

@@ -7,10 +7,17 @@
 </template>
 
 <script setup>
-
 </script>
 
 <style  scoped>
+
+img {
+  max-width: 8em;
+  box-shadow:
+    0 0 5px rgb(255, 50, 23),
+    0 0 30px rgb(255, 50, 23),
+    0 0 40px rgb(255, 50, 23);
+}
 
 #noResult {
   display: flex;
@@ -19,14 +26,14 @@
   align-items: center;
   margin: 1em;
   font-family: Sixtyfour Convergence;
-  text-shadow:
-  0 0 0.5px rgb(252, 100, 100),
-  0 0 1px rgb(255, 49, 49);
 }
 
 #gameOver {
   margin: 1em 3em 0 3em;
   font-size: 1em;
+}
+
+#noResult, #gameOver {
   text-shadow:
   0 0 0.5px rgb(252, 100, 100),
   0 0 1px rgb(255, 49, 49);
@@ -42,16 +49,6 @@
   text-align: center;
   padding: 2em;
   border-radius: 10px;
-}
-
-img {
-  max-width: 8em;
-  box-shadow:
-    0 0 5px rgb(255, 50, 23),
-    0 0 10px rgb(255, 50, 23),
-    0 0 20px rgb(255, 50, 23),
-    0 0 30px rgb(255, 50, 23),
-    0 0 40px rgb(255, 50, 23);
 }
 
 @media (min-width: 1024px) {

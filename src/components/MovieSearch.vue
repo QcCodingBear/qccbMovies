@@ -1,12 +1,12 @@
 <template>
-  <form action="post" id="zoneRecherche" @submit.prevent="searchMovies()">
+  <form action="post" id="searchArea" @submit.prevent="searchMovies()">
 
-    <input type="text" class="inputArea" v-model="valeurKeyWord" placeholder="Rechercher par mots-clés">
-    <input type="text" class="inputArea" v-model="valeurYear" placeholder="Rechercher par année">
-    <select id="optionGenre" name="choix" v-model="valeurGenre">
+    <input type="text" class="inputArea" v-model="keyWord" placeholder="Rechercher par mots-clés">
+    <input type="text" class="inputArea" v-model="year" placeholder="Rechercher par année">
+    <select id="optionGenre" name="optionGenre" v-model="genre">
       <option value="" disabled>Genre</option>
       <option value="">Tous</option>
-      <option v-for="genre in props.genresMovies" :key="genre.id" :value="genre.id">
+      <option v-for="genre in genresMovies" :key="genre.id" :value="genre.id">
         {{ genre.name }}
       </option>
 
@@ -18,45 +18,58 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { movieStore } from '../stores';
+import { ref, onMounted } from 'vue';
+import { useMovieStore } from '../stores';
 import { useRouter } from 'vue-router';
+import { fetchGenres } from '@/services/MoviesService';
 
-const useMovieStore = movieStore();
+const movieStore = useMovieStore();
 const router = useRouter();
-const valeurKeyWord = ref("");
-const valeurYear = ref("");
-const valeurGenre = ref("");
+const keyWord = ref("");
+const year = ref("");
+const genre = ref("");
 
-const props = defineProps({
-  genresMovies: Array,
+const genresMovies = ref([]);
+
+async function fetchData() {
+  const genresData = await fetchGenres();
+  genresMovies.value = genresData;
+}
+
+onMounted(() => {
+  fetchData();
 })
 
+function resetValues() {
+  movieStore.query = "";
+  movieStore.year = "";
+  movieStore.genre = "";
+  movieStore.seeMoreCounter = 0;
+  movieStore.movies = [];
+  movieStore.currentPage = 1;
+  movieStore.heavySearch = false;
+}
+
 function searchMovies() {
-  useMovieStore.query = "";
-  useMovieStore.year = "";
-  useMovieStore.genre = "";
-  useMovieStore.seeMore = 0;
-  useMovieStore.movies = [];
-  useMovieStore.pageActuelle = 1;
-  useMovieStore.heavySearch = false;
 
-  if (valeurKeyWord.value) {
-    useMovieStore.query = '&query=' + valeurKeyWord.value.trim();
+  resetValues();
+
+  if (keyWord.value) {
+    movieStore.query = '&query=' + keyWord.value.trim();
   }
 
-  if (valeurYear.value) {
-    useMovieStore.year = '&primary_release_year=' + valeurYear.value.trim();
+  if (year.value) {
+    movieStore.year = '&primary_release_year=' + year.value.trim();
   }
-  if (valeurGenre.value) {
-    useMovieStore.genre = '&with_genres=' + valeurGenre.value.toString();
+  if (genre.value) {
+    movieStore.genre = '&with_genres=' + genre.value.toString();
   }
+  movieStore.defineListSearch();
 
-  useMovieStore.definirListeSearch();
-
-  valeurKeyWord.value = "";
-  valeurYear.value = "";
-  valeurGenre.value = "";
+  // Reinitialise les valeurs de la barre de recherche
+  keyWord.value = "";
+  year.value = "";
+  genre.value = "";
 
   router.push({ name: 'searchMovies' });
 }
@@ -64,16 +77,10 @@ function searchMovies() {
 </script>
 
 <style scoped>
-#zoneRecherche {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
+button {
+  margin-top: 2em;
+  height: 5em;
 }
-
-.inputArea, #optionGenre, button {
-    width: 100%;
-  }
 
 button,
 #optionGenre {
@@ -88,8 +95,7 @@ button,
 }
 
 button:hover,
-#optionGenre:hover,
-#choix:hover {
+#optionGenre:hover{
   background-color: rgb(49, 49, 49);
   transform: scale(1.1);
   box-shadow:
@@ -100,7 +106,6 @@ button:hover,
 
 select,
 button,
-label #choix,
 #optionGenre,
 input[type="text"] {
   background-color: rgb(0, 0, 0);
@@ -116,40 +121,46 @@ input[type="text"] {
     0 0 30px rgb(40, 72, 255);
 }
 
+.inputArea,
+#optionGenre,
 button {
-  margin-top: 2em;
-  height: 5em;
+  width: 100%;
 }
 
+#searchArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
 
 @media (min-width: 1024px) {
-  .inputArea, #optionGenre, button {
+  button {
+    height: fit-content;
+  }
+
+  select,
+  button,
+  #optionGenre,
+  input[type="text"] {
+    padding: 10px;
+    margin-top: 0;
+  }
+
+  .inputArea,
+  #optionGenre,
+  button {
     width: auto;
   }
 
-  #zoneRecherche {
-  display: flex;
-  flex-direction: row;
-}
+  .inputArea {
+    width: 80%;
+    margin: 5px;
+  }
 
-.inputArea {
-  width: 80%;
-  margin: 5px;
+  #searchArea {
+    display: flex;
+    flex-direction: row;
+  }
 }
-
-select,
-button,
-label #choix,
-#optionGenre,
-input[type="text"] {
-  padding: 10px;
-    margin-top: 0;
-}
-
-button {
-  height:fit-content;
-}
-}
-
-
 </style>
