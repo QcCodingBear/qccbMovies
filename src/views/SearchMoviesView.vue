@@ -32,6 +32,7 @@ onMounted(() => {
   document.title = 'QcCB Movies - Recherche';
 });
 
+// Retourne une copie segmentée de la liste complete, pour afficher que 10 films par page.
 const moviesByPage = computed(() =>{
   const start = !movieStore.mergedSearch ? ((movieStore.currentPage % 2 === 0) ? MOVIES_BY_PAGE : 0)
   : (movieStore.currentPage > 1 ? (movieStore.currentPage * MOVIES_BY_PAGE - 10) : 0);

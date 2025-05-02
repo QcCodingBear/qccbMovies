@@ -24,7 +24,7 @@ const props = defineProps({
 });
 
 function imageOrNull(imagePath) {
-  const chemin = imagePath ? 'https://image.tmdb.org/t/p/w500' + imagePath : '/src/assets/img/noImageFound.png';
+  const chemin = imagePath ? 'https://image.tmdb.org/t/p/w500' + imagePath : '/src/assets/img/noImageFound.webp';
   return chemin;
 }
 

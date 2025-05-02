@@ -25,7 +25,7 @@ const movieStore = useMovieStore();
 
 // Attribue l'image associée dans l'API, ou l'image par défaut
 function imageOrNull(imagePath) {
-  if(!imagePath) return '/src/assets/img/noImageFound.png';
+  if(!imagePath) return '/src/assets/img/noImageFound.webp';
   return 'https://image.tmdb.org/t/p/w500' + imagePath;
 }
 
