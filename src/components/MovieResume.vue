@@ -21,11 +21,11 @@ const movieStore = useMovieStore();
 
 const props = defineProps({
   movie: Object
-})
+});
 
 function imageOrNull(imagePath) {
-  const chemin = imagePath ? 'https://image.tmdb.org/t/p/w500' + imagePath : '../src/assets/img/noImage.png';
-  return chemin
+  const chemin = imagePath ? 'https://image.tmdb.org/t/p/w500' + imagePath : '/src/assets/img/noImageFound.png';
+  return chemin;
 }
 
 // Source window.scroll : https://developer.mozilla.org/fr/docs/Web/API/Window/scrollBy
@@ -37,6 +37,7 @@ async function showDetails() {
     behavior: "smooth",
   });
 }
+
 </script>
 
 <style scoped>

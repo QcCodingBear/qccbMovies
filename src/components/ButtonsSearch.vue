@@ -1,5 +1,5 @@
 <template>
-<div v-if="movieStore.heavySearch && movieStore.currentPage === movieStore.totalPages
+<div v-if="movieStore.mergedSearch && movieStore.currentPage === movieStore.totalPages
 && movieStore.seeMoreCounter < 450" class="buttons">
     <button @click="seeMoreMovies" class='neonButton' id="moreResults">Afficher plus de Résultats</button>
   </div>
@@ -45,7 +45,7 @@ const currentLastPge = computed(() => {
 
 // Ne charge pas la suite de la liste si c'est une recherche comparant 2 listes.
 async function defineSearchListOrNot() {
-  if (!movieStore.heavySearch) await movieStore.defineListSearch();
+  if (!movieStore.mergedSearch) await movieStore.defineListSearch();
 }
 
 async function changePage(operation) {
@@ -223,7 +223,6 @@ p {
 
   #goButton {
     width: fit-content;
-    margin-right: 2em;
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="detailsContainer">
-    <img src="/src/assets/img/bandeFilm.png" alt="" class="bande">
+    <img src="/src/assets/img/filmStrip.png" alt="filmStrip" class="strip">
     <h2>{{ movie.title }}</h2>
     <img :src="imageOrNull(movie.poster_path)" alt="poster">
     <h3>Description</h3>
@@ -14,7 +14,7 @@
     <img :src="imageOrNull(movie.backdrop_path)" alt="backdrop">
     <!--Source ouvrir dans un nouvel onglet: https://www.ionos.fr/digitalguide/sites-internet/developpement-web/html-target/ -->
     <p><a :href="'https://www.themoviedb.org/movie/' + movie.id" target="_blank" rel="noopener" id="url">Voir la page TMDB</a></p>
-    <img src="/src/assets/img/bandeFilm.png" alt="" class="bande">
+    <img src="/src/assets/img/filmStrip.png" alt="filmStrip" class="strip">
   </div>
 </template>
 
@@ -25,8 +25,8 @@ const movieStore = useMovieStore();
 
 // Attribue l'image associée dans l'API, ou l'image par défaut
 function imageOrNull(imagePath) {
-  const chemin = imagePath ? 'https://image.tmdb.org/t/p/w500' + imagePath : '/src/assets/img/noImage.png';
-  return chemin
+  if(!imagePath) return '/src/assets/img/noImageFound.png';
+  return 'https://image.tmdb.org/t/p/w500' + imagePath;
 }
 
 // Pour ne garder que l'année de sortie.
@@ -36,7 +36,7 @@ function dateToYear(date) {
 
 defineProps({
   movie: Object,
-})
+});
 
 </script>
 
@@ -82,7 +82,7 @@ p {
   background-repeat: repeat;
 }
 
-.bande {
+.strip {
   box-shadow: none;
   width: 25em;
 }

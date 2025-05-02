@@ -1,7 +1,7 @@
 <script setup>
 import MovieSearch from './components/MovieSearch.vue';
 import MainFooter from './components/MainFooter.vue';
-import { RouterView } from 'vue-router'
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
@@ -53,6 +53,7 @@ main {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-bottom: 3em;
 }
 #banniere {
   max-width: 100%;

@@ -3,14 +3,15 @@
 
     <input type="text" class="inputArea" v-model="keyWord" placeholder="Rechercher par mots-clés">
     <input type="text" class="inputArea" v-model="year" placeholder="Rechercher par année">
+
     <select id="optionGenre" name="optionGenre" v-model="genre">
       <option value="" disabled>Genre</option>
       <option value="">Tous</option>
       <option v-for="genre in genresMovies" :key="genre.id" :value="genre.id">
         {{ genre.name }}
       </option>
-
     </select>
+
     <button type="submit">Rechercher</button>
 
   </form>
@@ -38,7 +39,7 @@ async function fetchData() {
 
 onMounted(() => {
   fetchData();
-})
+});
 
 function resetValues() {
   movieStore.query = "";
@@ -47,23 +48,17 @@ function resetValues() {
   movieStore.seeMoreCounter = 0;
   movieStore.movies = [];
   movieStore.currentPage = 1;
-  movieStore.heavySearch = false;
+  movieStore.mergedSearch = false;
 }
 
 function searchMovies() {
 
   resetValues();
 
-  if (keyWord.value) {
-    movieStore.query = '&query=' + keyWord.value.trim();
-  }
+  movieStore.query = keyWord.value ? `&query=${keyWord.value.trim()}` : "";
+  movieStore.year = year.value ? `&primary_release_year=${year.value.trim()}` : "";
+  movieStore.genre = genre.value ? `&with_genres=${genre.value.toString()}` : "";
 
-  if (year.value) {
-    movieStore.year = '&primary_release_year=' + year.value.trim();
-  }
-  if (genre.value) {
-    movieStore.genre = '&with_genres=' + genre.value.toString();
-  }
   movieStore.defineListSearch();
 
   // Reinitialise les valeurs de la barre de recherche
