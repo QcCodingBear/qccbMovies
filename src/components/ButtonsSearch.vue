@@ -1,12 +1,12 @@
 <template>
-  <div class="buttons"
-    v-if="movieStore.currentPage === movieStore.totalPages && movieStore.seeMoreCounter < 450 && movieStore.heavySearch">
+<div v-if="movieStore.heavySearch && movieStore.currentPage === movieStore.totalPages
+&& movieStore.seeMoreCounter < 450" class="buttons">
     <button @click="seeMoreMovies" class='neonButton' id="moreResults">Afficher plus de Résultats</button>
   </div>
 
   <div class="buttons">
-    <button :disabled="movieStore.currentPage <= 1" @click="changePage('back')"
-      :class="movieStore.currentPage <= 1 ? 'neonButtonDisabled' : 'neonButton'">Precedent</button>
+    <button :disabled="currentFirstPage" @click="changePage('back')"
+      :class="currentFirstPage ? 'neonButtonDisabled' : 'neonButton'">Precedent</button>
 
     <div class="pagesCounter">
       <p>Page</p>
@@ -14,8 +14,8 @@
       <p id="maxCounter">/{{ movieStore.totalPages }}</p>
     </div>
 
-    <button :disabled="movieStore.currentPage >= movieStore.totalPages" @click="changePage('next')"
-      :class="movieStore.currentPage >= movieStore.totalPages ? 'neonButtonDisabled' : 'neonButton'">Suivant</button>
+    <button :disabled="currentLastPge" @click="changePage('next')"
+      :class="currentLastPge ? 'neonButtonDisabled' : 'neonButton'">Suivant</button>
   </div>
 
   <form action="post" v-if="movieStore.totalPages > 0" class="goPage" @submit.prevent="goChangePage()">
@@ -30,10 +30,18 @@
 // Source window.scroll : https://developer.mozilla.org/fr/docs/Web/API/Window/scroll
 
 import { useMovieStore } from "../stores";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const movieStore = useMovieStore();
-const goPage = ref("");
+const goPage = ref();
+
+const currentFirstPage = computed(() => {
+  return movieStore.currentPage <= 1;
+})
+
+const currentLastPge = computed(() => {
+  return movieStore.currentPage >= movieStore.totalPages;
+})
 
 // Ne charge pas la suite de la liste si c'est une recherche comparant 2 listes.
 async function defineSearchListOrNot() {
@@ -47,15 +55,13 @@ async function changePage(operation) {
 
   window.scroll({
     top: 0,
-    behavior: "smooth",
+    behavior: "smooth"
   });
 }
 
+// Ajoute 50 pages à la recherche.
 async function seeMoreMovies() {
-
-  // Ajoute 50 pages à la recherche.
   movieStore.seeMoreCounter += 50;
-
   await movieStore.defineListSearch();
 
   window.scroll({
@@ -73,7 +79,7 @@ async function goChangePage() {
 
     window.scroll({
       top: 0,
-      behavior: "smooth",
+      behavior: "smooth"
     });
   }
 }

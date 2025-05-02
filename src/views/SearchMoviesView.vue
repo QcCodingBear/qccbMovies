@@ -2,7 +2,7 @@
 
 <div v-if="!loading">
   <MoviesCounter v-if="!noResult"/>
-  <NoMovies v-else />
+  <NoMoviesFound v-else />
 
   <MovieResume v-for="movie in moviesByPage" :movie="movie" v-bind:key="movie.id" />
 
@@ -19,7 +19,7 @@
 import MovieResume from "../components/MovieResume.vue";
 import MoviesCounter from "../components/MoviesCounter.vue";
 import ButtonsSearch from "../components/ButtonsSearch.vue";
-import NoMovies from "../components/NoMovies.vue";
+import NoMoviesFound from "../components/NoMoviesFound.vue";
 import LoadingScreen from '../components/LoadingScreen.vue';
 import { computed } from "vue";
 import { onMounted } from 'vue';
