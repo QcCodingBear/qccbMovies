@@ -51,7 +51,7 @@
   max-width: 10em;
   text-align: center;
   padding: 0 1em 0 1em;
-  background-image: url('/src/assets/img/welcomeBackground.webp');
+  background-image: url('/src/assets/img/welcomeBackground.gif');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

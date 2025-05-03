@@ -14,7 +14,7 @@ const movieStore = useMovieStore();
 <style scoped>
 /*Source image welcomeBackground: https://giphy.com/gifs/southparkgifs-3o6ZsUNRUTKcG9mi8E*/
 #counter {
-  background-image: url('/src/assets/img/welcomeBackground.webp');
+  background-image: url('/src/assets/img/welcomeBackground.gif');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
